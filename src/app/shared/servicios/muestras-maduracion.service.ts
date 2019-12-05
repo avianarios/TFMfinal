@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+/*import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';*/
+
+@Injectable()
+export class MuestrasMaduracionService {
+// usuarios: any[] = [];
+ base_url: string = 'http://127.0.0.1:8000/api/';
+ url_endpoint = 'maduracion';
+ cabecera = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+
+ constructor(private _http: HttpClient) {}
+
+  devolverMuestrasMaduracion() {
+    return this._http.get<any>(this.base_url+this.url_endpoint);
+  }
+
+  devolverMuestraMaduracion($id){
+    return this._http.get<any>(this.base_url+this.url_endpoint+$id);
+  }
+
+  guardarMuestraMaduracion(cuerpo){
+    /*return this._http.post(this.base_url+this.muestras_endpoint,datos, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+    }).pipe(map(data=>
+     data));*/
+      return this._http.post(this.base_url+this.url_endpoint, cuerpo, this.cabecera);
+  }
+
+  eliminarMuestraMaduracion($id){
+//    console.log (this.base_url+this.url_endpoint+"/"+$id);
+console.log ("voy a borrar "+$id);
+    return this._http.delete(this.base_url+this.url_endpoint+"/"+$id);
+    //console.log ($id);
+  }
+}

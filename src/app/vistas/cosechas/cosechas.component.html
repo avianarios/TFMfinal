@@ -1,0 +1,61 @@
+<section class="contenedorPrincipal">
+  <fieldset name="agregaTarea">
+    <legend>Nueva cosecha</legend>
+
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+      <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
+      <form [formGroup]="formulario" (submit)="guardarCosecha()">
+        <div fxFlex fxLayout="row" class="formulario">
+          <mat-form-field class="formulario_horizontal">
+            <mat-label for="tipo_vino">Tipo de vino</mat-label>
+            <input matInput
+            name="tipo_vino"
+            formControlName="tipo_vino" class="gris"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="formulario_horizontal">
+            <mat-label for="variedad_uva">Variedad de uva</mat-label>
+            <input matInput
+            name="variedad_uva"
+            formControlName="variedad_uva"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="formulario_horizontal">
+            <mat-label for="año">Año</mat-label>
+            <input matInput
+            name="año"
+            formControlName="año"
+            />
+          </mat-form-field>
+
+          <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </fieldset>
+
+  <!--<div *ngIf="cosechas.length>0">-->
+    <fieldset name="eliminaTareas">
+      <legend>Cosechas ya existentes</legend>
+      <ul>
+        <li *ngFor="let cosecha of cosechas">
+      {{cosecha.tipo_vino}}
+      {{cosecha.anyo}}
+      <button (click)='eliminarCosecha(cosecha)'>Eliminar</button>
+      <button (click)='elegirCosecha(cosecha)'>Elegir</button>
+
+  SACAR AQUÍ UN RESUMEN: NÚMERO DE MUESTRAS TOMADAS
+
+          <!--<app-cosecha-detalle [cosecha]='cosecha'
+            (clickTodoTxt)='goDetail($event)'
+            (clickRemove)='eliminarTareaID($event)'
+          ></app-cosecha-detalle>-->
+        </li>
+      </ul>
+    </fieldset>
+  <!--</div>-->
+</section>

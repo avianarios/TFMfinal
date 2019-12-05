@@ -1,0 +1,43 @@
+html{
+  height: 100%;
+}
+
+form input.ng-invalid.ng-touched {
+  border-color: #FA787E;
+}
+
+form{
+  margin-top: 25px;
+  width: 50%;
+}
+
+mat-form-field{
+  margin-right: 10px;
+  width:100px;
+}
+
+mat-label{
+  font-size: 0.75em;
+}
+
+.error{
+  color: red;
+  font-size: 0.8em;
+}
+
+.gris{
+  color: grey;
+}
+
+table {
+  width: 50%;
+}
+
+fieldset{
+  margin: 40px 0;
+}
+
+
+/*th, td{
+  text-align: center;
+}*/

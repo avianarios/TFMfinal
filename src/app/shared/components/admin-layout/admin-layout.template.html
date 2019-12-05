@@ -1,0 +1,36 @@
+<mat-drawer-container class="vh">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-xs>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <div fxShow="true" fxHide.lt-sm="true">
+<!--        <button mat-button routerLink="/admin/cosechas/"><mat-icon>home</mat-icon>Cosechas</button>-->
+        <button mat-button routerLink="/admin/configuracion/">Configuración</button>
+        <button mat-button routerLink="/admin/eleccionCosecha/">Cosechas</button>
+<!--        <button mat-button routerLink="/admin/parametrosIdeales">Parámetros</button>-->
+        <button mat-button routerLink="/admin/maduracion">Maduración</button>
+        <button mat-button routerLink="/admin/vendimia">Vendimia</button>
+        <button mat-button routerLink="/admin/conservacion">Conservación</button>
+        <button mat-button routerLink="/admin/tratamientos">Tratamientos</button>
+        <button mat-button routerLink="estadisticas">Estadísticas</button>
+        <button mat-button routerLink="/signin">Cerrar sesión</button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list fxLayout="column">
+        <button mat-button routerLink="/admin/parametrosIdeales"><mat-icon>account_box</mat-icon>Configuración de parámetros</button>
+        <button mat-button routerLink="/admin/muestras"><mat-icon>message</mat-icon>Toma de muestras</button>
+        <button mat-button routerLink="/admin/tratamientos"><mat-icon>settings</mat-icon>Registro de tratamientos</button>
+        <button mat-button routerLink="estadisticas"><mat-icon>close</mat-icon>Estadísticas</button>
+        <button mat-button routerLink="/"><mat-icon>close</mat-icon>Salir</button>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</mat-drawer-container>

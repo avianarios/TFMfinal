@@ -1,0 +1,19 @@
+<table border=1>
+  <caption id="títuloTabla">Muestras en la fase de maduración</caption>
+
+  <thead class="encabezado">
+      <tr>
+          <th *ngFor="let campo of campos" scope="col">{{campo}}</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let muestra of muestras">
+      <td *ngFor="let valor of muestra">
+      {{valor}}</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td>
+      <button routerLink="./personales">Editar datos personales</button>
+    </td></tr>
+  </tfoot>
+</table>
