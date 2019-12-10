@@ -1,61 +1,75 @@
-<section class="contenedorPrincipal">
-  <fieldset name="agregaTarea">
-    <legend>Nueva cosecha</legend>
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <p>
+    En esta pantalla se define la cosecha sobre la que se introducirán las muestras.
+  </p>
+  <p>
+    Puede elegir una ya existente o crear una nueva.
+  </p>
 
-    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-      <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
-      <form [formGroup]="formulario" (submit)="guardarCosecha()">
-        <div fxFlex fxLayout="row" class="formulario">
-          <mat-form-field class="formulario_horizontal">
-            <mat-label for="tipo_vino">Tipo de vino</mat-label>
-            <input matInput
-            name="tipo_vino"
-            formControlName="tipo_vino" class="gris"
-            />
-          </mat-form-field>
+    <fieldset name="agregaTarea">
+      <legend>Nueva cosecha</legend>
+    <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
+    <form [formGroup]="formulario" (submit)="guardarCosecha()">
+      <div fxFlex fxLayout="row" class="formulario">
+        <mat-form-field class="formulario_horizontal">
+          <mat-label for="variedad_uva">Tipo de vino</mat-label>
+          <mat-select
+                   [(ngModel)] = "selectedValue" name = "tipo_vino" formControlName="tipo_vino">
+                   <mat-option *ngFor = "let vino of vinos"
+                      [value] = "vino.valor">
+                      {{vino.mostrar}}
+                   </mat-option>
+                </mat-select>
+        </mat-form-field>
 
-          <mat-form-field class="formulario_horizontal">
-            <mat-label for="variedad_uva">Variedad de uva</mat-label>
-            <input matInput
-            name="variedad_uva"
-            formControlName="variedad_uva"
-            />
-          </mat-form-field>
+        <mat-form-field class="formulario_horizontal">
+          <mat-label for="variedad_uva">Variedad de uva</mat-label>
+          <input matInput
+          name="variedad_uva"
+          formControlName="variedad_uva"
+          />
+        </mat-form-field>
 
-          <mat-form-field class="formulario_horizontal">
-            <mat-label for="año">Año</mat-label>
-            <input matInput
-            name="año"
-            formControlName="año"
-            />
-          </mat-form-field>
+        <mat-form-field class="formulario_horizontal">
+          <mat-label for="anyo">Año</mat-label>
+          <input matInput
+          name="anyo"
+          formControlName="anyo"
+          />
+        </mat-form-field>
 
-          <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
-            Guardar
-          </button>
-        </div>
-      </form>
-    </div>
+        <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
+          Guardar
+        </button>
+      </div>
+    </form>
   </fieldset>
 
-  <!--<div *ngIf="cosechas.length>0">-->
-    <fieldset name="eliminaTareas">
-      <legend>Cosechas ya existentes</legend>
-      <ul>
-        <li *ngFor="let cosecha of cosechas">
-      {{cosecha.tipo_vino}}
-      {{cosecha.anyo}}
-      <button (click)='eliminarCosecha(cosecha)'>Eliminar</button>
-      <button (click)='elegirCosecha(cosecha)'>Elegir</button>
+  <legend>Elección de una ya existente</legend>
 
-  SACAR AQUÍ UN RESUMEN: NÚMERO DE MUESTRAS TOMADAS
+  <table mat-table [dataSource]="dataSource" matSort class="tabla_muestras">
+    <ng-container matColumnDef="tipo_vino">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
+    </ng-container>
+    <ng-container matColumnDef="variedad_uva">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Variedad de uva </th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.variedad_uva}} </td>
+    </ng-container>
+    <ng-container matColumnDef="anyo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.anyo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones</th>
+      <td mat-cell *matCellDef="let cosecha">
+        <button mat-button color="primary" (click)="elegirCosecha(cosecha)">Elegir</button>
+        <button mat-button color="primary" (click)="eliminarCosecha(cosecha.id_cosecha)">Eliminar</button>
+       </td>
+    </ng-container>
 
-          <!--<app-cosecha-detalle [cosecha]='cosecha'
-            (clickTodoTxt)='goDetail($event)'
-            (clickRemove)='eliminarTareaID($event)'
-          ></app-cosecha-detalle>-->
-        </li>
-      </ul>
-    </fieldset>
-  <!--</div>-->
-</section>
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

@@ -12,20 +12,19 @@ import { AdminLayoutComponent } from './shared/components/admin-layout/admin-lay
 //const routes: Routes = [
 export const rootRouterConfig: Routes = [
 //    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
-    { path: '', redirectTo: 'signin', pathMatch: 'full' },
-
+    { path: '', redirectTo: 'configuracion', pathMatch: 'full' },
     {
       path: 'signin',
       loadChildren: './vistas/signin/signin.module#SigninModule',
       data: { title: 'Inicio de sesión' }
     },
-    {
+/*    {
       path: 'aterrizaje',
       loadChildren: './vistas/aterrizaje/aterrizaje.module#AterrizajeModule',
       data: { title: 'Página principal' }
-    },
+    },*/
     {
-      path: 'eleccionCosecha',
+      path: 'configuracion',
       loadChildren: './vistas/cosechas/cosechas.module#CosechasModule',
       data: { title: 'Cosechas' }
     },
@@ -33,6 +32,11 @@ export const rootRouterConfig: Routes = [
       path: 'admin',
       component: AdminLayoutComponent,
       children:[
+        {
+          path: 'configuracion',
+          loadChildren: './vistas/cosechas/cosechas.module#CosechasModule',
+          data: { title: 'Cosechas' }
+        },
         {
           path: 'parametrosIdeales',
           loadChildren: './vistas/parametros-ideales/parametros-ideales.module#ParametrosIdealesModule',

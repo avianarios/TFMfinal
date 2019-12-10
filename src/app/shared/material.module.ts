@@ -15,7 +15,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatCardModule
 } from '@angular/material';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule
   ],
   exports: [
     FlexLayoutModule,
@@ -51,7 +53,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule
   ]
 })
 export class MaterialModule {}

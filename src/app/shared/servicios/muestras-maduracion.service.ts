@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-/*import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';*/
+import { Observable/*, Subject*/ } from 'rxjs';
+//import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MuestrasMaduracionService {
@@ -15,28 +15,25 @@ export class MuestrasMaduracionService {
 
  constructor(private _http: HttpClient) {}
 
-  devolverMuestrasMaduracion() {
+  devolverMuestrasMaduracion(): Observable<any>{
     return this._http.get<any>(this.base_url+this.url_endpoint);
   }
 
-  devolverMuestraMaduracion($id){
+  devolverMuestraMaduracion($id): Observable<any>{
     return this._http.get<any>(this.base_url+this.url_endpoint+$id);
   }
 
-  guardarMuestraMaduracion(cuerpo){
+  guardarMuestraMaduracion(cuerpo): Observable<any>{
     /*return this._http.post(this.base_url+this.muestras_endpoint,datos, {
       headers: new HttpHeaders({
            'Content-Type':  'application/json',
          })
     }).pipe(map(data=>
      data));*/
-      return this._http.post(this.base_url+this.url_endpoint, cuerpo, this.cabecera);
+    return this._http.post(this.base_url+this.url_endpoint, cuerpo, this.cabecera);
   }
 
-  eliminarMuestraMaduracion($id){
-//    console.log (this.base_url+this.url_endpoint+"/"+$id);
-console.log ("voy a borrar "+$id);
+  eliminarMuestraMaduracion($id: string): Observable<any>{
     return this._http.delete(this.base_url+this.url_endpoint+"/"+$id);
-    //console.log ($id);
   }
 }

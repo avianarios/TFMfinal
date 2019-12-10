@@ -9,7 +9,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
 // COMPONENTS
 //import { AppComfirmComponent } from './services/app-confirm/app-confirm.component';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
-//import { EleccionVinoComponent } from '../vistas/eleccion-vino/eleccion-vino.component';
 import { MuestrasComponent } from '../vistas/muestras/muestras.component';
 import { MaterialModule } from './material.module';
 
@@ -24,7 +23,6 @@ import { MaterialModule } from './material.module';
 //import { AppConfirmService } from './services/app-confirm/app-confirm.service';
 
 const declarations = [
-  //EleccionVinoComponent,
   //CosechaDetalleComponent,
   MuestrasComponent,
   //AppComfirmComponent,

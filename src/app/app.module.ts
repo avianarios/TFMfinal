@@ -5,7 +5,6 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
-//import { AppRoutingModule } from './app-routing.module';
 import { rootRouterConfig } from './app-routing'
 import { AppComponent } from './app.component';
 
@@ -16,14 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MuestrasMaduracionService } from './shared/servicios/muestras-maduracion.service';
 import { CosechasService } from './shared/servicios/cosechas.service';
-//import { CosechaElementoComponent } from './vistas/cosecha-elemento/cosecha-elemento.component'
-//import { CosechasComponent } from './vistas/cosechas/cosechas.component';
-/*import { MaduracionComponent } from './vistas/maduracion/maduracion.component';
-import { VendimiaComponent } from './vistas/vendimia/vendimia.component';
-import { ConservacionComponent } from './vistas/conservacion/conservacion.component';
-import { MuestrasComponent } from './vistas/muestras/muestras.component';
-import { EstadisticasComponent } from './vistas/estadisticas/estadisticas.component';*/
-
 
 //import { StoreModule } from '@ngrx/store';
 //import { reducers, metaReducers } from './reducers';
@@ -33,13 +24,6 @@ import { EstadisticasComponent } from './vistas/estadisticas/estadisticas.compon
 @NgModule({
   declarations: [
     AppComponent,
-//CosechaElementoComponent,
-//    CosechasComponent,
-    /*MaduracionComponent,
-    VendimiaComponent,
-    ConservacionComponent,
-    MuestrasComponent,
-    EstadisticasComponent*/
   ],
   imports: [
     SharedModule,
@@ -48,15 +32,6 @@ import { EstadisticasComponent } from './vistas/estadisticas/estadisticas.compon
     BrowserAnimationsModule,
     MaterialModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
-
-    /*StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
-    EffectsModule.forRoot([AppEffects])*/
   ],
   providers: [
     MuestrasMaduracionService,
