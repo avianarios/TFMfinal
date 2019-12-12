@@ -70,7 +70,7 @@ export class CosechasComponent implements OnInit {
 
   elegirCosecha($cosecha){
     this._servicioCosechas.elegirCosecha($cosecha);
-    this._router.navigateByUrl('/admin/estadisticas');
+    this._router.navigateByUrl('/admin/muestras');
   }
 
   cosechaElegida (){

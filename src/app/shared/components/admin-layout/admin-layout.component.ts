@@ -4,8 +4,10 @@ import { SesionService } from 'src/app/shared/servicios/sesion.service';
 
 @Component({
   selector: 'app-admin-layout',
-  templateUrl: './admin-layout.template.html'
+  templateUrl: './admin-layout.template.html',
+  styleUrls: ['./admin-layout.css']
 })
+
 export class AdminLayoutComponent implements OnInit{
 
   constructor(private _router:Router, private _sesion: SesionService) { }

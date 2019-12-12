@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { MuestrasMaduracionService } from '../../../shared/servicios/muestras-maduracion.service';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { MuestrasService } from '../../../shared/servicios/muestras.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   FormGroup,
@@ -9,11 +9,10 @@ import {
   FormBuilder
 } from '@angular/forms';
 import {formatoFecha} from '../../../shared/validadores';
-import {definicionMuestraMaduracion} from '../../../shared/modelos/muestraMaduracion.model';
 import { definicionCosecha } from '../../../shared/modelos/cosechas.model';
 import { DatePipe } from '@angular/common';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { CosechasService } from '../../../shared/servicios/cosechas.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-maduracion',
@@ -23,24 +22,21 @@ import { CosechasService } from '../../../shared/servicios/cosechas.service';
 export class MaduracionComponent implements OnInit {
   public hoy=new Date();
   //columnas: string[];
-  columnas=["id_muestra", "cata", "ph", "acidez", "grado_alcoholico", "fecha", "acciones"];
   formulario: FormGroup;
   //@Output() onSave: EventEmitter<muestraMaduracion> = new EventEmitter<muestraMaduracion>();
-  dataSource=new MatTableDataSource<definicionMuestraMaduracion>([]);
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   elegida: definicionCosecha;
 
   constructor(
-      private _MuestrasMaduracion: MuestrasMaduracionService,
+      private _ServicioMuestras: MuestrasService,
       private _builder: FormBuilder,
       private _datepipe: DatePipe,
-      private _servicioCosechas: CosechasService
+      private _ServicioCosechas: CosechasService,
+      private _encaminador: Router
   ) { }
 
   ngOnInit() {
-    this.recargarLista();
-    this.cosechaElegida();
+    this.elegida=this._ServicioCosechas.devolverCosechaElegida();
+    this.crearFormulario();
   }
 
   crearFormulario() {
@@ -56,31 +52,18 @@ export class MaduracionComponent implements OnInit {
   }
 
   guardar(){
-    this.formulario.value.id_cosecha=this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
-    this._MuestrasMaduracion.guardarMuestraMaduracion(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
-      this.recargarLista();
+    this.formulario.value.id_cosecha=this._ServicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
+    this._ServicioMuestras.guardarMuestraMaduracion(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
+//      this.recargarLista();
+      this._encaminador.navigate(['/admin/muestras']);
     });
   }
 
   eliminar($id){
-    this._MuestrasMaduracion.eliminarMuestraMaduracion($id).subscribe(respuesta=>{
-      this.recargarLista();
+    this._ServicioMuestras.eliminarMuestraMaduracion($id).subscribe(respuesta=>{
+      //this.recargarLista();
+      this._encaminador.navigate(['/admin/muestras']);
     });
   }
 
-  recargarLista() {
-    this._MuestrasMaduracion.devolverMuestrasMaduracion().subscribe(datos=>{
-      /*datos.forEach(muestra_act=>{
-        muestra_act.fecha = (this._datepipe.transform(new Date(muestra_act.fecha),"dd-MM-yyyy"));
-      });*/
-      this.dataSource.data = datos;
-    });
-    this.crearFormulario();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  cosechaElegida (){
-    this.elegida=this._servicioCosechas.devolverCosechaElegida();
-  }
 }

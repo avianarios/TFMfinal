@@ -4,7 +4,7 @@ import { Observable/*, Subject*/ } from 'rxjs';
 //import { map } from 'rxjs/operators';
 
 @Injectable()
-export class MuestrasMaduracionService {
+export class MuestrasService {
 // usuarios: any[] = [];
  base_url: string = 'http://127.0.0.1:8000/api/';
  url_endpoint = 'maduracion';
@@ -15,11 +15,13 @@ export class MuestrasMaduracionService {
 
  constructor(private _http: HttpClient) {}
 
-  devolverMuestrasMaduracion(): Observable<any>{
-    return this._http.get<any>(this.base_url+this.url_endpoint);
-  }
+ //devolverTodas(): Observable<any>{
+ //  return this._http.get<any>(this.base_url+this.url_endpoint);
+ devolverTodas($url_endpoint): Observable<any>{
+   return this._http.get<any>(this.base_url+$url_endpoint);
+ }
 
-  devolverMuestraMaduracion($id): Observable<any>{
+  devolverMuestra($id): Observable<any>{
     return this._http.get<any>(this.base_url+this.url_endpoint+$id);
   }
 

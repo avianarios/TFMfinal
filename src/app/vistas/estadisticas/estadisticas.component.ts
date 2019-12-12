@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MuestrasMaduracionService } from '../../shared/servicios/muestras-maduracion.service';
+import { MuestrasService } from '../../shared/servicios/muestras.service';
 
 @Component({
   selector: 'app-estadisticas',
@@ -11,16 +11,16 @@ export class EstadisticasComponent implements OnInit {
   muestras:any[]=[];
 
   constructor(
-      private _MuestrasMaduracion: MuestrasMaduracionService
+      private _ServicioMuestras: MuestrasService
   ) { }
 
   ngOnInit() {
-    this._MuestrasMaduracion.devolverMuestrasMaduracion().subscribe(datos=>{
+/*    this._ServicioMuestras.devolverTodas().subscribe(datos=>{
       this.campos=Object.keys(datos[0]);
       datos.forEach(muestra_act=>{
         this.muestras.push (Object.values(muestra_act));
       });
-    });
+    });*/
   }
 
 }

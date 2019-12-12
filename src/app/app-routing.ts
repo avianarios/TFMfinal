@@ -38,6 +38,11 @@ export const rootRouterConfig: Routes = [
           data: { title: 'Cosechas' }
         },
         {
+          path: 'muestras',
+          loadChildren: './vistas/muestras/muestras.module#MuestrasModule',
+          data: { title: 'Muestras' }
+        },
+        {
           path: 'parametrosIdeales',
           loadChildren: './vistas/parametros-ideales/parametros-ideales.module#ParametrosIdealesModule',
           data: { title: 'Parámetros del vino', breadcrumb: 'Parámetros del vino' }
@@ -61,12 +66,12 @@ export const rootRouterConfig: Routes = [
           path: 'conservacion',
           loadChildren: './vistas/muestras/conservacion/conservacion.module#ConservacionModule',
           data: { title: 'Conservacion', breadcrumb: 'Conservacion' }
-        },
+        }/*,
         {
           path: 'estadisticas',
           loadChildren: './vistas/estadisticas/estadisticas.module#EstadisticasModule',
           data: { title: 'Estadísticas', breadcrumb: 'Estadísticas' }
-        }
+        }*/
       ]
     },
     {

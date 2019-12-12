@@ -1,172 +1,102 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-<p>
-  Aquí puede introducir muestras en la fase de maduración para la cosecha de vino {{this.elegida.tipo_vino}} del año {{elegida.anyo}}
-</p>
-  <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
-  <fieldset name="agregarMuestra">
-    <legend>
-      Agregar muestra
-    </legend>
-  <form [formGroup]="formulario" (submit)="guardar()">
-    <div fxFlex fxLayout="row">
-      <mat-form-field>
-        <mat-label for="cata">cata</mat-label>
-        <input matInput
-          name="cata"
-          formControlName="cata"
-        />
-        <mat-error *ngIf = "formulario.controls['cata'].hasError('pattern')">
-          <strong>Se necesita un valor numérico</strong>
-        </mat-error>
-        <mat-error *ngIf = "formulario.controls['cata'].hasError('required')">
-          <strong>Campo obligatorio</strong>
-        </mat-error>
-      </mat-form-field>
+  <p>
+    <!--Aquí puede introducir muestras en la fase de maduración para la cosecha de vino {{this.elegida.tipo_vino}} del año {{elegida.anyo}}-->
+    Aquí puede introducir muestras en la fase de maduración para la cosecha de vino RELLENAR del año RELLENAR
+  </p>
+    <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
+    <fieldset name="agregarMuestra">
+      <legend>
+        Agregar muestra
+      </legend>
+    <form [formGroup]="formulario" (submit)="guardar()">
+      <div fxFlex fxLayout="row">
+        <mat-form-field>
+          <mat-label for="cata">cata</mat-label>
+          <input matInput
+            name="cata"
+            formControlName="cata"
+          />
+          <mat-error *ngIf = "formulario.controls['cata'].hasError('pattern')">
+            <strong>Se necesita un valor numérico</strong>
+          </mat-error>
+          <mat-error *ngIf = "formulario.controls['cata'].hasError('required')">
+            <strong>Campo obligatorio</strong>
+          </mat-error>
+        </mat-form-field>
 
 
-      <mat-form-field>
-        <mat-label for="ph">ph</mat-label>
-        <input matInput
-          name="ph"
-          formControlName="ph"
-        />
-        <mat-error *ngIf = "formulario.controls['ph'].hasError('pattern')">
-          <strong>Se necesita un valor numérico</strong>
-        </mat-error>
-        <mat-error *ngIf = "formulario.controls['ph'].hasError('required')">
-          <strong>Campo obligatorio</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label for="ph">ph</mat-label>
+          <input matInput
+            name="ph"
+            formControlName="ph"
+          />
+          <mat-error *ngIf = "formulario.controls['ph'].hasError('pattern')">
+            <strong>Se necesita un valor numérico</strong>
+          </mat-error>
+          <mat-error *ngIf = "formulario.controls['ph'].hasError('required')">
+            <strong>Campo obligatorio</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label for="acidez">acidez</mat-label>
-        <input matInput
-          name="acidez"
-          formControlName="acidez"
-        />
-        <mat-error *ngIf = "formulario.controls['acidez'].hasError('pattern')">
-          <strong>Se necesita un valor numérico</strong>
-        </mat-error>
-        <mat-error *ngIf = "formulario.controls['acidez'].hasError('required')">
-          <strong>Campo obligatorio</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label for="acidez">acidez</mat-label>
+          <input matInput
+            name="acidez"
+            formControlName="acidez"
+          />
+          <mat-error *ngIf = "formulario.controls['acidez'].hasError('pattern')">
+            <strong>Se necesita un valor numérico</strong>
+          </mat-error>
+          <mat-error *ngIf = "formulario.controls['acidez'].hasError('required')">
+            <strong>Campo obligatorio</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label for="grado_alcoholico">grado alcohólico</mat-label>
-        <input matInput
-        name="grado_alcoholico"
-        formControlName="grado_alcoholico"
-        />
-        <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('pattern')">
-          <strong>Se necesita un valor numérico</strong>
-        </mat-error>
-        <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('required')">
-          <strong>Campo obligatorio</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label for="grado_alcoholico">grado alcohólico</mat-label>
+          <input matInput
+          name="grado_alcoholico"
+          formControlName="grado_alcoholico"
+          />
+          <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('pattern')">
+            <strong>Se necesita un valor numérico</strong>
+          </mat-error>
+          <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('required')">
+            <strong>Campo obligatorio</strong>
+          </mat-error>
+        </mat-form-field>
 
-<!--Al enviar los valores, Datepicker envía NULL
-      <mat-form-field>
-        <mat-label for="fecha">fecha</mat-label>
-         <input matInput [matDatepicker]="fecha" [value]='hoy' readonly>
-         <mat-datepicker-toggle matSuffix [for] = "fecha"></mat-datepicker-toggle>
-         <mat-datepicker #fecha></mat-datepicker>
-         <mat-error *ngIf="formulario.controls['fecha'].hasError('required')">Campo obligatorio</mat-error>
-      </mat-form-field>-->
+  <!--Al enviar los valores, Datepicker envía NULL
+        <mat-form-field>
+          <mat-label for="fecha">fecha</mat-label>
+           <input matInput [matDatepicker]="fecha" [value]='hoy' readonly>
+           <mat-datepicker-toggle matSuffix [for] = "fecha"></mat-datepicker-toggle>
+           <mat-datepicker #fecha></mat-datepicker>
+           <mat-error *ngIf="formulario.controls['fecha'].hasError('required')">Campo obligatorio</mat-error>
+        </mat-form-field>-->
 
-      <!--<mat-form-field>
-        <mat-label for="fecha">fecha</mat-label>
-        <input matInput
-        name="fecha"
-        formControlName="fecha"
-        />
-        <mat-error *ngIf = "formulario.controls['fecha'].hasError('fechaIncorrecta')">
-          <strong>El formato correcto es dd/mm/aaaa</strong>
-        </mat-error>
+        <!--<mat-form-field>
+          <mat-label for="fecha">fecha</mat-label>
+          <input matInput
+          name="fecha"
+          formControlName="fecha"
+          />
+          <mat-error *ngIf = "formulario.controls['fecha'].hasError('fechaIncorrecta')">
+            <strong>El formato correcto es dd/mm/aaaa</strong>
+          </mat-error>
 
-        <mat-error *ngIf = "formulario.controls['fecha'].hasError('required')">
-          <strong>Campo obligatorio</strong>
-        </mat-error>
-      </mat-form-field>-->
+          <mat-error *ngIf = "formulario.controls['fecha'].hasError('required')">
+            <strong>Campo obligatorio</strong>
+          </mat-error>
+        </mat-form-field>-->
 
-      <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
-        Guardar
-      </button>
-    </div>
-  </form>
-</fieldset>
+        <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
 
-
-  <legend>
-    Muestras tomadas
-  </legend>
-
-  <table mat-table [dataSource]="dataSource" matSort class="tabla_muestras">
-    <ng-container matColumnDef="id_muestra">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> id muestra</th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.id_muestra}} </td>
-    </ng-container>
-    <ng-container matColumnDef="cata">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cata </th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.cata}} </td>
-    </ng-container>
-    <ng-container matColumnDef="ph">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
-    </ng-container>
-    <ng-container matColumnDef="acidez">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
-    </ng-container>
-    <ng-container matColumnDef="grado_alcoholico">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado alcohólico </th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.grado_alcoholico}} </td>
-    </ng-container>
-    <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-      <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
-    </ng-container>
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef> Acciones</th>
-      <td mat-cell *matCellDef="let muestra">
-        <button mat-button color="primary" (click)="eliminar(muestra.id_muestra)">Eliminar</button>
-       </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-
-  <!--<mat-table #table [dataSource]="dataSource">
-		<ng-container matColumnDef="cata">
-			<mat-header-cell *matHeaderCellDef> cata </mat-header-cell>
-			<mat-cell *matCellDef="let muestra"> {{muestra.cata}} </mat-cell>
-		</ng-container>
-
-		<ng-container matColumnDef="ph">
-			<mat-header-cell *matHeaderCellDef> PH </mat-header-cell>
-			<mat-cell *matCellDef="let muestra"> {{muestra.ph}} </mat-cell>
-		</ng-container>
-
-		<ng-container matColumnDef="acidez">
-			<mat-header-cell *matHeaderCellDef> Acidez </mat-header-cell>
-			<mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </mat-cell>
-		</ng-container>
-
-		<ng-container matColumnDef="grado_alcoholico">
-			<mat-header-cell *matHeaderCellDef> Grado alcohólico </mat-header-cell>
-			<mat-cell *matCellDef="let muestra"> {{muestra.grado_alcoholico}} </mat-cell>
-		</ng-container>
-
-    <ng-container matColumnDef="fecha">
-      <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-      <mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </mat-cell>
-    </ng-container>
-
-		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-		<mat-row *matRowDef="let row; columns: columnas;"></mat-row>
-	</mat-table>-->
-
+          Guardar
+        </button>
+        <button mat-button color="primary" type="button" routerLink="/admin/muestras">Cancelar</button>
+      </div>
+    </form>
+  </fieldset>
 </div>
