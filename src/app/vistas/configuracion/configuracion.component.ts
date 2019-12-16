@@ -39,7 +39,7 @@ export class ConfiguracionComponent implements OnInit {
   paso:number;
   elegir:boolean;
 
-  columnasParametros=["tipo_vino", "tipo_uva", "sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph"];
+  columnasParametros=["tipo_vino", "tipo_uva", "sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph", "acciones"];
   datosParametros=new MatTableDataSource<definicionParametros>([]);
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -62,7 +62,7 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit() {
     this.cargarCosechas();
-    this.cargarParametros();
+//    this.cargarParametros();
     this.paso=1;
   }
 
@@ -75,13 +75,14 @@ export class ConfiguracionComponent implements OnInit {
           this._servicioCosechas.elegirCosecha(cosecha);
         }
       });
+      this.cargarParametros();
     });
     this.datosCosechas.paginator = this.paginador;
     this.datosCosechas.sort = this.sort;
   }
 
   cargarParametros(){
-    this._ServicioMuestras.devolverTodas("parametros").subscribe(datos=>{
+    this._ServicioMuestras.devolverUna(this.cosechaActual["tipo_vino"], "parametros").subscribe(datos=>{
       this.datosParametros.data = datos;
     });
   //  this.crearFormulario();

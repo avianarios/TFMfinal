@@ -7,7 +7,7 @@ form input.ng-invalid.ng-touched {
 }
 
 section, form{
-  width: 40%;
+  width: 50%;
 }
 
 mat-form-field{

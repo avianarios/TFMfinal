@@ -22,7 +22,7 @@ export class MuestrasService {
  }
 
   devolverUna($id, $url_endpoint): Observable<any>{
-    return this._http.get<any>(this.base_url+$url_endpoint+$id);
+    return this._http.get<any>(this.base_url+$url_endpoint+"/"+$id);
   }
 
   guardarMuestra($url_endpoint, $cuerpo): Observable<any>{
