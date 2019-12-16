@@ -25,6 +25,7 @@ export class CosechasService {
   }
 
   guardarCosecha(cuerpo): Observable<any>{
+    console.log (cuerpo);
     return this._http.post(this.base_url+this.url_endpoint, cuerpo, this.cabecera);
   }
 
@@ -34,10 +35,26 @@ export class CosechasService {
 
   elegirCosecha($cosecha){
     this.elegida=$cosecha;
+    //console.log ("he elegido"+$cosecha);
   }
 
   devolverCosechaElegida(){
     return (this.elegida);
+  }
+
+  actualizarCosechaElegida($cosecha, $cuerpo){
+    console.log ($cosecha);
+    console.log ($cosecha["id_cosecha"]);
+
+//console.log (this.elegida);
+    //le quito el indicador de actual a la cosecha que lo tiene en la base de datos
+    return this._http.put(this.base_url+this.url_endpoint+"/"+$cosecha["id_cosecha"], $cuerpo);
+    //return this._http.put(this.base_url+this.url_endpoint+"/"+cosecha["id_cosecha"], cuerpoActual);
+
+
+//    this.elegida=$cosecha;
+    //return this._http.put(this.base_url+this.url_endpoint+"/"+this.elegida["id_cosecha"], cuerpo);*/
+
   }
 
 }

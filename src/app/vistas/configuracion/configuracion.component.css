@@ -6,9 +6,8 @@ form input.ng-invalid.ng-touched {
   border-color: #FA787E;
 }
 
-form{
-  margin-top: 25px;
-  width: 50%;
+section, form{
+  width: 40%;
 }
 
 mat-form-field{

@@ -33,10 +33,11 @@ export interface Vino {
 
 export class ConfiguracionComponent implements OnInit {
 //  formulario: FormGroup;
-  elegida: definicionCosecha;
   columnasCosechas=["tipo_vino", "anyo", "variedad_uva", "acciones"];
   datosCosechas=new MatTableDataSource<definicionCosecha>([]);
+  cosechaActual=definicionCosecha;
   paso:number;
+  elegir:boolean;
 
   columnasParametros=["tipo_vino", "tipo_uva", "sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph"];
   datosParametros=new MatTableDataSource<definicionParametros>([]);
@@ -61,14 +62,20 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit() {
     this.cargarCosechas();
+    this.cargarParametros();
     this.paso=1;
   }
 
   cargarCosechas(){
     this._servicioCosechas.devolverCosechas().subscribe(datos=>{
       this.datosCosechas.data = datos;
+      datos.forEach(cosecha=>{
+        if (cosecha.actual){
+          this.cosechaActual=cosecha;
+          this._servicioCosechas.elegirCosecha(cosecha);
+        }
+      });
     });
-  //  this.crearFormulario();
     this.datosCosechas.paginator = this.paginador;
     this.datosCosechas.sort = this.sort;
   }
@@ -90,16 +97,21 @@ export class ConfiguracionComponent implements OnInit {
     });
   }*/
 
-  elegirCosecha($cosecha){
-    this._servicioCosechas.elegirCosecha($cosecha);
-    this.cargarParametros();
+  cambiarCosechaElegida($nuevaCosechaActual){
+    //this.cosechaActual contiene la que, hasta ahora, era la cosecha actual. $nuevaCosechaActual es la nueva, elegida por el usuario
+    const sinActual={"actual":"0"};
+    const conActual={"actual":"1"};
+    this._servicioCosechas.actualizarCosechaElegida(this.cosechaActual, sinActual).subscribe(datos=>{
+      this._servicioCosechas.actualizarCosechaElegida($nuevaCosechaActual, conActual).subscribe(datos=>{
+        this.cargarCosechas();
+      });
+    });
     this.paso=2;
-    //this._router.navigateByUrl('/admin/muestras');
   }
 
-  cosechaElegida (){
-    this.elegida=this._servicioCosechas.devolverCosechaElegida();
-  }
+  /*cosechaElegida (){
+    this.cosechaActual=this._servicioCosechas.devolverCosechaElegida();
+  }*/
 
   /*guardarCosecha(){
     this._servicioCosechas.guardarCosecha(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
@@ -113,4 +125,7 @@ export class ConfiguracionComponent implements OnInit {
     });
   }*/
 
+  public cambiarPaso($num){
+    this.paso=$num;
+  }
 }

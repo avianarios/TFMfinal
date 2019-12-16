@@ -7,36 +7,44 @@
 
   <!--<section fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayout="column" fxLayoutAlign="center">-->
 <section fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <section *ngIf="paso==1" fxLayout="column" fxLayoutAlign="center">
+  <section *ngIf="paso==1 || paso==11" fxLayout="column" fxLayoutAlign="center">
     <legend fxLayoutAlign="center center">
-      1.- Elija una cosecha sobre la que trabajar
+      1.- Por defecto se trabaja sobre la última cosecha, pero puede elegir otra
+      La cosecha sobre la que se va a trabajar es:
+      {{cosechaActual.tipo_vino}}
+      {{cosechaActual.tipo_uva}}
+      {{cosechaActual.anyo}}
     </legend>
     <div fxLayout="row" fxLayoutAlign="space-between">
-      <legend>
-        Elección de cosecha
-      </legend>
       <!--<button mat-button color="primary" routerLink="/admin/maduracion">Nueva cosecha</button>-->
-      <button mat-button color="primary" routerLink="/admin/cosechas/nuevaCosecha">Nueva cosecha</button>
+      <button mat-button color="primary" routerLink="/admin/cosechas/nuevaCosecha">Usar una nueva cosecha</button>
+      <button mat-button color="primary" (click)="cambiarPaso(2)">Usar la última</button>
+      <button mat-button color="primary" (click)="cambiarPaso(11)">Elegir otra</button>
     </div>
-     <table mat-table [dataSource]="datosCosechas" matSort class="tabla_muestras">
-      <ng-container matColumnDef="tipo_vino">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
-      </ng-container>
-      <ng-container matColumnDef="variedad_uva">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Variedad de uva </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.variedad_uva}} </td>
-      </ng-container>
-      <ng-container matColumnDef="anyo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.anyo}} </td>
-      </ng-container>
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef> Acciones</th>
-        <td mat-cell *matCellDef="let cosecha">
-          <button mat-button color="primary" (click)="elegirCosecha(cosecha)">Elegir</button>
-         </td>
-      </ng-container>
+  </section>
+  <section *ngIf="paso==11" fxLayout="column" fxLayoutAlign="center">
+    <!--<div *ngIf="{{cosecha.actual}}==1">
+      sIIIIIIIIIII
+    </div>-->
+   <table mat-table [dataSource]="datosCosechas" matSort class="tabla_muestras">
+    <ng-container matColumnDef="tipo_vino">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
+    </ng-container>
+    <ng-container matColumnDef="variedad_uva">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Variedad de uva </th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.variedad_uva}} </td>
+    </ng-container>
+    <ng-container matColumnDef="anyo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+      <td mat-cell *matCellDef="let cosecha"> {{cosecha.anyo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones</th>
+      <td mat-cell *matCellDef="let cosecha">
+        <button mat-button color="primary" (click)="cambiarCosechaElegida(cosecha)">Elegir</button>
+       </td>
+    </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnasCosechas"></tr>
       <tr mat-row *matRowDef="let row; columns: columnasCosechas;"></tr>
     </table>
@@ -98,6 +106,6 @@
 
     </table>
     <mat-paginator #paginador2 [pageSizeOptions]="[5, 10, 15, 20, 50]" showFirstLastButtons></mat-paginator>
-    <button mat-button color="primary" routerLink="/admin/muestras">Continuar</button>
+    <button mat-button color="primary" routerLink="/admin/muestras">Continuar sin cambios</button>
   </section>
 </section>
