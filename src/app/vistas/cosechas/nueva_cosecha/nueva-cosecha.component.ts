@@ -11,6 +11,11 @@ import { CosechasService } from '../../../shared/servicios/cosechas.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+export interface Vino {
+  valor: string;
+  mostrar: string;
+}
+
 @Component({
   selector: 'app-nueva-cosecha',
   templateUrl: './nueva-cosecha.component.html',
