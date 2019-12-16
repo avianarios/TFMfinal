@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { CosechasService } from '../../shared/servicios/cosechas.service';
-import { CosechaDetalleComponent } from './cosecha-detalle/cosecha-detalle.component';
+//import { CosechaDetalleComponent } from './cosecha-detalle/cosecha-detalle.component';
 import { Router } from '@angular/router';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -55,9 +55,9 @@ export class CosechasComponent implements OnInit {
     this._servicioCosechas.devolverCosechas().subscribe(datos=>{
       this.dataSource.data = datos;
     });
-    this.crearFormulario();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.crearFormulario();
   }
 
   crearFormulario() {
@@ -66,15 +66,6 @@ export class CosechasComponent implements OnInit {
       variedad_uva: new FormControl(),
       anyo: new FormControl((new Date()).getFullYear()),
     });
-  }
-
-  elegirCosecha($cosecha){
-    this._servicioCosechas.elegirCosecha($cosecha);
-    this._router.navigateByUrl('/admin/muestras');
-  }
-
-  cosechaElegida (){
-    this.elegida=this._servicioCosechas.devolverCosechaElegida();
   }
 
   guardarCosecha(){

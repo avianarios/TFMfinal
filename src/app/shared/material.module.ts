@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatSidenavModule,
@@ -36,7 +37,9 @@ import {
     MatNativeDateModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    MatFormFieldModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -54,7 +57,9 @@ import {
     MatNativeDateModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    MatFormFieldModule,
   ]
 })
 export class MaterialModule {}

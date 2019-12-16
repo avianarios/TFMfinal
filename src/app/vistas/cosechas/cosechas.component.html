@@ -1,14 +1,14 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <p>
-    En esta pantalla se define la cosecha sobre la que se introducirán las muestras.
-  </p>
-  <p>
-    Puede elegir una ya existente o crear una nueva.
-  </p>
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <legend>
+      Listado de cosechas
+    </legend>
+    <!--<button mat-button color="primary" routerLink="/admin/maduracion">Nueva cosecha</button>-->
+    <button mat-button color="primary" routerLink="/admin/cosechas/nuevaCosecha">Nueva cosecha</button>
+  </div>
 
-    <fieldset name="agregaTarea">
+    <!--<fieldset>
       <legend>Nueva cosecha</legend>
-    <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
     <form [formGroup]="formulario" (submit)="guardarCosecha()">
       <div fxFlex fxLayout="row" class="formulario">
         <mat-form-field class="formulario_horizontal">
@@ -43,9 +43,8 @@
         </button>
       </div>
     </form>
-  </fieldset>
+  </fieldset>-->
 
-  <legend>Elección de una ya existente</legend>
 
   <table mat-table [dataSource]="dataSource" matSort class="tabla_muestras">
     <ng-container matColumnDef="tipo_vino">
@@ -63,7 +62,6 @@
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef> Acciones</th>
       <td mat-cell *matCellDef="let cosecha">
-        <button mat-button color="primary" (click)="elegirCosecha(cosecha)">Elegir</button>
         <button mat-button color="primary" (click)="eliminarCosecha(cosecha.id_cosecha)">Eliminar</button>
        </td>
     </ng-container>

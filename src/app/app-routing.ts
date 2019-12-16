@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
-//import { EleccionVinoComponent } from './vistas/eleccion-vino/eleccion-vino.component';
+import { AterrizajeDisposicionComponent } from './shared/components/aterrizaje-disposicion/aterrizaje-disposicion.component';
 //import { AdminLayoutCimport { TokenResponse } from '../../../models/token.interface';omponent } from './compartido/components/admin-layout/admin-layout.component';
 //import { ConfparametrosComponent } from './vistas/confparametros/confparametros.component';
 //import { AterrizajeComponent } from './vistas/aterrizaje/aterrizaje.component';
@@ -12,29 +12,40 @@ import { AdminLayoutComponent } from './shared/components/admin-layout/admin-lay
 //const routes: Routes = [
 export const rootRouterConfig: Routes = [
 //    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
-    { path: '', redirectTo: 'configuracion', pathMatch: 'full' },
+    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
     {
-      path: 'signin',
-      loadChildren: './vistas/signin/signin.module#SigninModule',
-      data: { title: 'Inicio de sesión' }
-    },
-/*    {
+      path: 'aterrizaje',
+      component: AterrizajeDisposicionComponent,
+      children:[
+/*
+    {
       path: 'aterrizaje',
       loadChildren: './vistas/aterrizaje/aterrizaje.module#AterrizajeModule',
-      data: { title: 'Página principal' }
+      data: { title: 'Inicio de sesión' }
     },*/
-    {
-      path: 'configuracion',
-      loadChildren: './vistas/cosechas/cosechas.module#CosechasModule',
-      data: { title: 'Cosechas' }
-    },
+      {
+        path: 'acceso',
+        loadChildren: './vistas/aterrizaje/acceso/acceso.module#AccesoModule',
+        data: { title: 'Acceso' }
+      },
+    ]},
     {
       path: 'admin',
       component: AdminLayoutComponent,
       children:[
         {
           path: 'configuracion',
+          loadChildren: './vistas/configuracion/configuracion.module#ConfiguracionModule',
+          data: { title: 'Configuración' }
+        },
+        {
+          path: 'cosechas',
           loadChildren: './vistas/cosechas/cosechas.module#CosechasModule',
+          data: { title: 'Cosechas' }
+        },
+        {
+          path: 'cosechas/nuevaCosecha',
+          loadChildren: './vistas/cosechas/nueva_cosecha/nueva-cosecha.module#NuevaCosechaModule',
           data: { title: 'Cosechas' }
         },
         {

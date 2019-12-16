@@ -17,10 +17,11 @@
       <span class="spacer"></span>
       <div fxShow="true" fxHide.lt-sm="true">
         <button mat-button routerLink="/admin/configuracion/">Configuración</button>
+        <button mat-button routerLink="/admin/cosechas">Cosechas</button>
         <button mat-button routerLink="/admin/muestras">Muestras</button>
         <button mat-button routerLink="/admin/tratamientos">Tratamientos</button>
         <button mat-button routerLink="estadisticas">Estadísticas</button>
-        <button mat-button routerLink="/signin">Salir</button>
+        <button mat-button (click)="cerrarSesion()">Salir</button>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

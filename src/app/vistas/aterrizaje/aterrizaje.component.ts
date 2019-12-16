@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 import { SesionService } from '../../shared/servicios/sesion.service';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  selector: 'app-aterrizaje',
+  templateUrl: './aterrizaje.component.html',
+  styleUrls: ['./aterrizaje.component.scss']
 })
-export class SigninComponent implements OnInit {
+export class AterrizajeComponent implements OnInit {
   usuarios: any[] = [];
 //  usuario_actual: Array<any>=[];
   loginForm: FormGroup = this._builder.group({
@@ -50,7 +50,7 @@ export class SigninComponent implements OnInit {
       this._sesion.iniciarSesion(user);
       this._router.navigateByUrl('/eleccionCosecha');
     }else
-      this._router.navigateByUrl('/signin');
+      this._router.navigateByUrl('/sesion');
     /*     for (const usuario of this.usuarios) {
       if (
         usuario['identificacion'].usuario === this.loginForm.value.usuario &&
@@ -68,7 +68,7 @@ export class SigninComponent implements OnInit {
 
   cerrarSesion(){
     this._sesion.cerrarSesion();
-    this._router.navigateByUrl('/signin');
+    this._router.navigateByUrl('/sesion');
   }
 
   ngOnInit() {

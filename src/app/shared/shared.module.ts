@@ -9,6 +9,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
 // COMPONENTS
 //import { AppComfirmComponent } from './services/app-confirm/app-confirm.component';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
+import { AterrizajeDisposicionComponent } from './components/aterrizaje-disposicion/aterrizaje-disposicion.component';
+
 //import { MuestrasComponent } from '../vistas/muestras/muestras.component';
 import { MaterialModule } from './material.module';
 
@@ -26,6 +28,7 @@ const declarations = [
   //CosechaDetalleComponent,
   //MuestrasComponent,
   //AppComfirmComponent,
+  AterrizajeDisposicionComponent,
   AdminLayoutComponent];
 const exports = [
   CommonModule,
@@ -33,6 +36,7 @@ const exports = [
   ReactiveFormsModule,
   RouterModule,
 //  AppComfirmComponent,
+  AterrizajeDisposicionComponent,
   AdminLayoutComponent
 ];
 //const providers = [AppConfirmService];

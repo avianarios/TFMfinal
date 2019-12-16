@@ -21,10 +21,10 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class MaduracionComponent implements OnInit {
   public hoy=new Date();
-  //columnas: string[];
   formulario: FormGroup;
   //@Output() onSave: EventEmitter<muestraMaduracion> = new EventEmitter<muestraMaduracion>();
   elegida: definicionCosecha;
+  url_endpoint="maduracion";
 
   constructor(
       private _ServicioMuestras: MuestrasService,
@@ -53,14 +53,14 @@ export class MaduracionComponent implements OnInit {
 
   guardar(){
     this.formulario.value.id_cosecha=this._ServicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
-    this._ServicioMuestras.guardarMuestraMaduracion(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
+    this._ServicioMuestras.guardarMuestra(this.url_endpoint, JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
 //      this.recargarLista();
       this._encaminador.navigate(['/admin/muestras']);
     });
   }
 
   eliminar($id){
-    this._ServicioMuestras.eliminarMuestraMaduracion($id).subscribe(respuesta=>{
+    this._ServicioMuestras.eliminarMuestra(this.url_endpoint, $id).subscribe(respuesta=>{
       //this.recargarLista();
       this._encaminador.navigate(['/admin/muestras']);
     });

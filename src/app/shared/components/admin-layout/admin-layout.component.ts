@@ -17,8 +17,8 @@ export class AdminLayoutComponent implements OnInit{
       this._router.navigateByUrl('/signin');*/
   }
 
-  /*cerrarSesion(){
+  cerrarSesion(){
     this._sesion.cerrarSesion();
-    this._router.navigateByUrl('/signin');
-  }*/
+    this._router.navigateByUrl('/aterrizaje');
+  }
 }
