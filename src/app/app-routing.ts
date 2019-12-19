@@ -54,8 +54,8 @@ export const rootRouterConfig: Routes = [
           data: { title: 'Muestras' }
         },
         {
-          path: 'parametrosIdeales',
-          loadChildren: './vistas/parametros-ideales/parametros-ideales.module#ParametrosIdealesModule',
+          path: 'configuracion/parametros',
+          loadChildren: './vistas/configuracion/parametros/parametros.module#ParametrosModule',
           data: { title: 'Parámetros del vino', breadcrumb: 'Parámetros del vino' }
         },
         {

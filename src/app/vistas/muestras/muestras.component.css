@@ -3,5 +3,16 @@
 }
 
 legend{
-  margin: 30px 0;
+  margin: 10px 0;
+}
+
+.tabla_muestras{
+  margin: 20px 0;
+}
+
+
+.sin_muestras{
+  font-size: 0.75em;
+  color: grey;
+  padding-left: 10px;
 }

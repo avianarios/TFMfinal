@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { CosechasService } from '../../shared/servicios/cosechas.service';
-//import { CosechaDetalleComponent } from './cosecha-detalle/cosecha-detalle.component';
+//import { CosechasService } from '../../shared/servicios/cosechas.service';
+import { APIService } from '../../shared/servicios/API.service';
 import { Router } from '@angular/router';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,9 +40,8 @@ export class CosechasComponent implements OnInit {
    {valor: 'blanco', mostrar: 'Blanco'}
   ];
 
-
   constructor(
-    private _servicioCosechas: CosechasService,
+    private _servicioAPI: APIService,
     private _builder: FormBuilder,
     private _router: Router
   ) { }
@@ -52,7 +51,7 @@ export class CosechasComponent implements OnInit {
   }
 
   recargarLista(){
-    this._servicioCosechas.devolverCosechas().subscribe(datos=>{
+    this._servicioAPI.devolverTodas("cosecha").subscribe(datos=>{
       this.dataSource.data = datos;
     });
     this.dataSource.paginator = this.paginator;
@@ -69,13 +68,13 @@ export class CosechasComponent implements OnInit {
   }
 
   guardarCosecha(){
-    this._servicioCosechas.guardarCosecha(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
+    this._servicioAPI.guardar("cosecha", JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
       this.recargarLista();
     });
   }
 
   eliminarCosecha($id) {
-    this._servicioCosechas.eliminarCosecha($id).subscribe(respuesta=>{
+    this._servicioAPI.eliminar("cosecha", $id).subscribe(respuesta=>{
       this.recargarLista();
     });
   }

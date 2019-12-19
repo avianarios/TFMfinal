@@ -1,22 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-//import { CosechaDetalleComponent } from './cosecha-detalle/cosecha-detalle.component';
 import { Router } from '@angular/router';
-
 import { CosechasService } from '../../shared/servicios/cosechas.service';
-import { MuestrasService } from '../../shared/servicios/muestras.service';
+import { APIService } from '../../shared/servicios/API.service';
 
 //El siguiente servicio sirve también para los parámetros
 import { definicionCosecha } from '../../shared/modelos/cosechas.model';
 import { definicionParametros } from '../../shared/modelos/parametros.model';
-
-/*import { ReactiveFormsModule } from '@angular/forms';
-import {
-  FormGroup,
-  FormArray,
-  FormControl,
-  Validators,
-  FormBuilder
-} from '@angular/forms';*/
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 
@@ -35,7 +24,18 @@ export class ConfiguracionComponent implements OnInit {
 //  formulario: FormGroup;
   columnasCosechas=["tipo_vino", "anyo", "variedad_uva", "acciones"];
   datosCosechas=new MatTableDataSource<definicionCosecha>([]);
-  cosechaActual=definicionCosecha;
+//si no lo inicializo,da error (aunque al final sale todo bien) porque se renderiza el html, donde se incluye un {{cosechaActual.tipo_vino}} antes de que los datos estén cargados
+  cosechaActual: definicionCosecha={
+    "id_cosecha":0,
+    "tipo_vino":"",
+    "anyo":1900,
+    "variedad_uva": "",
+    "fecha_recogida": "",
+    "fecha_produccion":"",
+    "litros": 0,
+    "kg":0
+  }
+
   paso:number;
   elegir:boolean;
 
@@ -44,30 +44,20 @@ export class ConfiguracionComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginador: MatPaginator;
-  @ViewChild(MatPaginator, {static: true}) paginador2: MatPaginator;
-
-/*  selectedValue: string;
-  vinos: Vino[] = [
-   {valor: 'tinto', mostrar: 'Tinto'},
-   {valor: 'blanco', mostrar: 'Blanco'}
- ];*/
-
 
   constructor(
     private _servicioCosechas: CosechasService,
-    private _ServicioMuestras: MuestrasService,
-    //private _builder: FormBuilder,
+    private _servicioAPI: APIService,
     private _router: Router
   ) { }
 
   ngOnInit() {
     this.cargarCosechas();
-//    this.cargarParametros();
     this.paso=1;
   }
 
   cargarCosechas(){
-    this._servicioCosechas.devolverCosechas().subscribe(datos=>{
+    this._servicioAPI.devolverTodas("cosecha").subscribe(datos=>{
       this.datosCosechas.data = datos;
       datos.forEach(cosecha=>{
         if (cosecha.actual){
@@ -82,49 +72,25 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   cargarParametros(){
-    this._ServicioMuestras.devolverUna(this.cosechaActual["tipo_vino"], "parametros").subscribe(datos=>{
+    this._servicioAPI.devolverUna("parametros", this.cosechaActual["tipo_vino"]).subscribe(datos=>{
       this.datosParametros.data = datos;
     });
-  //  this.crearFormulario();
-    this.datosParametros.paginator = this.paginador2;
-    this.datosParametros.sort = this.sort;
   }
 
-  /*crearFormulario() {
-    this.formulario = this._builder.group({
-      tipo_vino: new FormControl(''),
-      variedad_uva: new FormControl(),
-      anyo: new FormControl((new Date()).getFullYear()),
-    });
-  }*/
-
   cambiarCosechaElegida($nuevaCosechaActual){
+console.log (this.cosechaActual);
+console.log ($nuevaCosechaActual);
+
     //this.cosechaActual contiene la que, hasta ahora, era la cosecha actual. $nuevaCosechaActual es la nueva, elegida por el usuario
     const sinActual={"actual":"0"};
     const conActual={"actual":"1"};
-    this._servicioCosechas.actualizarCosechaElegida(this.cosechaActual, sinActual).subscribe(datos=>{
-      this._servicioCosechas.actualizarCosechaElegida($nuevaCosechaActual, conActual).subscribe(datos=>{
+    this._servicioAPI.actualizar("cosecha", this.cosechaActual["id_cosecha"], sinActual).subscribe(datos=>{
+      this._servicioAPI.actualizar("cosecha", $nuevaCosechaActual["id_cosecha"], conActual).subscribe(datos=>{
         this.cargarCosechas();
       });
     });
     this.paso=2;
   }
-
-  /*cosechaElegida (){
-    this.cosechaActual=this._servicioCosechas.devolverCosechaElegida();
-  }*/
-
-  /*guardarCosecha(){
-    this._servicioCosechas.guardarCosecha(JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
-      this.recargarLista();
-    });
-  }
-
-  eliminarCosecha($id) {
-    this._servicioCosechas.eliminarCosecha($id).subscribe(respuesta=>{
-      this.recargarLista();
-    });
-  }*/
 
   public cambiarPaso($num){
     this.paso=$num;

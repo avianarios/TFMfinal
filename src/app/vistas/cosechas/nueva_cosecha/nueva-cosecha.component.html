@@ -20,6 +20,9 @@
         name="variedad_uva"
         formControlName="variedad_uva"
         />
+        <mat-error *ngIf = "formulario.controls['variedad_uva'].hasError('required')">
+          <strong>Valor obligatorio</strong>
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="formulario_horizontal">
@@ -28,6 +31,9 @@
         name="anyo"
         formControlName="anyo"
         />
+        <mat-error *ngIf = "formulario.controls['anyo'].hasError('required')">
+          <strong>Valor obligatorio</strong>
+        </mat-error>
       </mat-form-field>
 
       <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">

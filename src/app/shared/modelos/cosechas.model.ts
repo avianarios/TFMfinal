@@ -1,6 +1,6 @@
 export class definicionCosecha {
   id_cosecha: number;
-  tipo_vino: number;
+  tipo_vino: string;
   anyo:number;
   variedad_uva:string;
   fecha_recogida:string;

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ParametrosIdealesComponent } from './parametros-ideales.component';
+import { ParametrosComponent } from './parametros.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ParametrosIdealesComponent
+    component: ParametrosComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ParametrosIdealesRoutingModule {}
+export class ParametrosRoutingModule {}

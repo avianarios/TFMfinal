@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MuestrasService } from '../../../shared/servicios/muestras.service';
+import { APIService } from '../../../shared/servicios/API.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   FormGroup,
@@ -27,15 +27,15 @@ export class MaduracionComponent implements OnInit {
   url_endpoint="maduracion";
 
   constructor(
-      private _ServicioMuestras: MuestrasService,
+      private _servicioAPI: APIService,
       private _builder: FormBuilder,
       private _datepipe: DatePipe,
-      private _ServicioCosechas: CosechasService,
+      private _servicioCosechas: CosechasService,
       private _encaminador: Router
   ) { }
 
   ngOnInit() {
-    this.elegida=this._ServicioCosechas.devolverCosechaElegida();
+    this.elegida=this._servicioCosechas.devolverCosechaElegida();
     this.crearFormulario();
   }
 
@@ -52,18 +52,10 @@ export class MaduracionComponent implements OnInit {
   }
 
   guardar(){
-    this.formulario.value.id_cosecha=this._ServicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
-    this._ServicioMuestras.guardarMuestra(this.url_endpoint, JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
+    this.formulario.value.id_cosecha=this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
+    this._servicioAPI.guardar(this.url_endpoint, JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
 //      this.recargarLista();
       this._encaminador.navigate(['/admin/muestras']);
     });
   }
-
-  eliminar($id){
-    this._ServicioMuestras.eliminarMuestra(this.url_endpoint, $id).subscribe(respuesta=>{
-      //this.recargarLista();
-      this._encaminador.navigate(['/admin/muestras']);
-    });
-  }
-
 }

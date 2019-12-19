@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MuestrasService } from '../../shared/servicios/muestras.service';
+import { APIService } from '../../shared/servicios/API.service';
 
 @Component({
   selector: 'app-estadisticas',
@@ -11,7 +11,7 @@ export class EstadisticasComponent implements OnInit {
   muestras:any[]=[];
 
   constructor(
-      private _ServicioMuestras: MuestrasService
+      private _ServicioMuestras: APIService
   ) { }
 
   ngOnInit() {

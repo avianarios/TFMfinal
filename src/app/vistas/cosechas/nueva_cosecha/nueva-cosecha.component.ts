@@ -7,7 +7,7 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { CosechasService } from '../../../shared/servicios/cosechas.service';
+import { APIService } from '../../../shared/servicios/API.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -29,7 +29,7 @@ export class NuevaCosechaComponent implements OnInit {
   ];
 
   constructor(
-    private _servicioCosechas: CosechasService,
+    private _servicioAPI: APIService,
     private _builder: FormBuilder,
     private _router: Router,
     private _location: Location
@@ -41,14 +41,15 @@ export class NuevaCosechaComponent implements OnInit {
 
   crearFormulario() {
     this.formulario = this._builder.group({
-      tipo_vino: new FormControl(''),
-      variedad_uva: new FormControl(),
-      anyo: new FormControl((new Date()).getFullYear()),
+      tipo_vino: new FormControl('',Validators.required),
+      variedad_uva: new FormControl('',Validators.required),
+      anyo: new FormControl((new Date()).getFullYear(), Validators.required),
     });
   }
 
   guardarCosecha(){
-    this._servicioCosechas.guardarCosecha(JSON.stringify(this.formulario.value)).subscribe(datos=>{
+    this.formulario.value.actual=1;
+    this._servicioAPI.guardar("cosecha", JSON.stringify(this.formulario.value)).subscribe(datos=>{
       //this._router.navigateByUrl('/admin/cosechas');
       this._location.back();
     });

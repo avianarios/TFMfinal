@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MuestrasService } from './shared/servicios/muestras.service';
+import { APIService } from './shared/servicios/API.service';
 import { CosechasService } from './shared/servicios/cosechas.service';
 
 //import { StoreModule } from '@ngrx/store';
@@ -32,7 +32,7 @@ import { CosechasService } from './shared/servicios/cosechas.service';
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
   ],
   providers: [
-    MuestrasService,
+    APIService,
     CosechasService,
     DatePipe,
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},  //para Datepicker, que no funciona bien
