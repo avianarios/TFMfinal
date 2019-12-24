@@ -1,29 +1,35 @@
-<mat-toolbar>
-  <span>LOGIN</span>
-</mat-toolbar>
-<mat-card class="my-card">
-  <form [formGroup]="formulario" (submit)="login()">
-   <mat-card-content>
-       <mat-form-field>
-         <mat-label for="usuario">Usuario</mat-label>
-         <input matInput
-         name="usuario"
-         formControlName="usuario"
-         />
-       </mat-form-field>
-       <mat-form-field>
-         <mat-label for="clave">Clave</mat-label>
-         <input matInput
-         name="clave"
-         formControlName="clave"
-         />
-       </mat-form-field>
-   </mat-card-content>
-   <mat-card-actions>
-      <button mat-button color="primary" type="submit">Acceso</button>
-    </mat-card-actions>
-  </form>
-</mat-card>
-<div *ngIf="!autenticado">
-  Usuario incorrecto
-</div>
+<section fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+  <mat-card  class="my-card" fxFlex="30%">
+    <mat-card-title>
+      <div class="centrado">
+        Inicio de sesión
+      </div>
+    </mat-card-title>
+    <form [formGroup]="formulario" (submit)="login()">
+     <mat-card-content fxLayout="column">
+         <mat-form-field>
+           <mat-label for="usuario">Usuario</mat-label>
+           <input matInput
+           name="usuario"
+           formControlName="usuario"
+           />
+         </mat-form-field>
+         <mat-form-field>
+           <mat-label for="clave">Clave</mat-label>
+           <input matInput
+           name="clave"
+           formControlName="clave"
+           />
+         </mat-form-field>
+     </mat-card-content>
+     <mat-card-actions>
+        <button mat-button color="primary" type="submit">Acceso</button>
+      </mat-card-actions>
+    </form>
+    <div *ngIf="!autenticado">
+      <p class="error">
+        Usuario incorrecto
+      </p>
+    </div>
+  </mat-card>
+</section>

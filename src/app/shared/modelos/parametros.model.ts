@@ -1,10 +1,12 @@
 export interface definicionParametros{
-    tipo_vino: string;
-    sulfuroso: number;
-    grado: number;
-    gluconico: number;
-    malico: number;
-    cata: number;
-    acidez: number;
-    ph: number;
+  id_parametros: number;
+  tipo_vino: string;
+  variedad_uva: string;
+  sulfuroso: number;
+  grado: number;
+  gluconico: number;
+  malico: number;
+  cata: number;
+  acidez: number;
+  ph: number;
 }

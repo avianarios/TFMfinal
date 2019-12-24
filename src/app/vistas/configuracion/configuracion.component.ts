@@ -16,7 +16,7 @@ export interface Vino {
 @Component({
   selector: 'app-configuracion',
   templateUrl: './configuracion.component.html',
-  styleUrls: ['./configuracion.component.css']
+  styleUrls: ['./configuracion.component.scss']
 })
 
 
@@ -30,16 +30,21 @@ export class ConfiguracionComponent implements OnInit {
     "tipo_vino":"",
     "anyo":1900,
     "variedad_uva": "",
-    "fecha_recogida": "",
-    "fecha_produccion":"",
+    "actual":0,
+    "recogida": "",
+    "produccion":"",
     "litros": 0,
     "kg":0
   }
 
-  paso:number;
-  elegir:boolean;
+  parametrosActuales: definicionParametros;
+  parametrosActualesCargados: Promise<Boolean>;
 
-  columnasParametros=["tipo_vino", "tipo_uva", "sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph", "acciones"];
+  paso:number;
+  hayParametros: boolean;
+
+  //columnasParametros=["tipo_vino", "variedad_uva", "sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph", "acciones"];
+  columnasParametros=["sulfuroso", "grado", "gluconico", "malico", "cata", "acidez", "ph", "acciones"];
   datosParametros=new MatTableDataSource<definicionParametros>([]);
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -54,9 +59,11 @@ export class ConfiguracionComponent implements OnInit {
   ngOnInit() {
     this.cargarCosechas();
     this.paso=1;
+    this.hayParametros=false;
   }
 
   cargarCosechas(){
+    this.hayParametros=false;
     this._servicioAPI.devolverTodas("cosecha").subscribe(datos=>{
       this.datosCosechas.data = datos;
       datos.forEach(cosecha=>{
@@ -72,27 +79,32 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   cargarParametros(){
-    this._servicioAPI.devolverUna("parametros", this.cosechaActual["tipo_vino"]).subscribe(datos=>{
-      this.datosParametros.data = datos;
+//para cambiar variedad_uva por tipo_vino, es necesario hacerlo aquí y en controladorParametros
+    this._servicioAPI.devolverUna("parametros", this.cosechaActual["variedad_uva"]).subscribe(datos=>{
+      if (datos.length>0){
+        this.parametrosActuales=datos[0];
+        this.hayParametros=true;
+        this.parametrosActualesCargados=Promise.resolve(true);
+        this.datosParametros.data = datos;
+        this._servicioCosechas.elegirParametros(datos[0]);
+      }
+
     });
   }
 
-  cambiarCosechaElegida($nuevaCosechaActual){
-console.log (this.cosechaActual);
-console.log ($nuevaCosechaActual);
+  cambiarEleccion($nuevaCosechaActual){
+   //this.cosechaActual contiene la que, hasta ahora, era la cosecha actual. $nuevaCosechaActual es la nueva, elegida por el usuario
+   const sinActual={"actual":"0"};
+   const conActual={"actual":"1"};
+   this._servicioAPI.actualizar("cosecha", this.cosechaActual["id_cosecha"], sinActual).subscribe(datos=>{
+     this._servicioAPI.actualizar("cosecha", $nuevaCosechaActual["id_cosecha"], conActual).subscribe(datos=>{
+       this.cargarCosechas();
+     });
+   });
+   this.paso=2;
+ }
 
-    //this.cosechaActual contiene la que, hasta ahora, era la cosecha actual. $nuevaCosechaActual es la nueva, elegida por el usuario
-    const sinActual={"actual":"0"};
-    const conActual={"actual":"1"};
-    this._servicioAPI.actualizar("cosecha", this.cosechaActual["id_cosecha"], sinActual).subscribe(datos=>{
-      this._servicioAPI.actualizar("cosecha", $nuevaCosechaActual["id_cosecha"], conActual).subscribe(datos=>{
-        this.cargarCosechas();
-      });
-    });
-    this.paso=2;
-  }
-
-  public cambiarPaso($num){
+  cambiarPaso($num){
     this.paso=$num;
   }
 }

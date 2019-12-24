@@ -17,7 +17,7 @@ import { RouterModule, Router } from '@angular/router';
 @Component({
   selector: 'app-maduracion',
   templateUrl: './maduracion.component.html',
-  styleUrls: ['./maduracion.component.css']
+  styleUrls: ['./maduracion.component.scss']
 })
 export class MaduracionComponent implements OnInit {
   public hoy=new Date();
@@ -43,16 +43,19 @@ export class MaduracionComponent implements OnInit {
     var fechaHoy = this._datepipe.transform(new Date(),"yyyy-MM-dd");
     this.formulario = this._builder.group({
       id_muestra: new FormControl (''),
+      id_cosecha: new FormControl(this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString()),
       cata: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
       ph: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
       acidez: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
       grado_alcoholico: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
       fecha: new FormControl(fechaHoy),
     });
+    /*Alternativas para cambiar el valor de un campo de un formulario:
+    this.formulario.get('id_cosecha').setValue(this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString());
+    Alternativa a lo anterior:    this.formulario.value.id_cosecha=this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString();*/
   }
 
   guardar(){
-    this.formulario.value.id_cosecha=this._servicioCosechas.devolverCosechaElegida().id_cosecha.toString();    //obtengo el id_cosecha elegida en la primera pantalla para asociar la muestra a dicha cosecha
     this._servicioAPI.guardar(this.url_endpoint, JSON.stringify(this.formulario.value)).subscribe(respuesta=>{
 //      this.recargarLista();
       this._encaminador.navigate(['/admin/muestras']);

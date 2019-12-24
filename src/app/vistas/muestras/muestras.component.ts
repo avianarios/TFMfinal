@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { definicionMuestraMaduracion, definicionMuestraVendimia, definicionMuestraConservacion } from '../../shared/modelos/muestras.model';
-import { APIService } from '../../shared/servicios/API.service';
 import { CosechasService } from '../../shared/servicios/cosechas.service';
+import { APIService } from '../../shared/servicios/API.service';
 //import { MuestrasVendimiaService } from '../../shared/servicios/muestras-vendimia.service';
 //import { MuestrasConservacionService } from '../../shared/servicios/muestras-conservacion.service';
 import { filter }  from  'rxjs/operators';
@@ -10,7 +10,7 @@ import { filter }  from  'rxjs/operators';
 @Component({
   selector: 'app-muestras',
   templateUrl: './muestras.component.html',
-  styleUrls: ['./muestras.component.css']
+  styleUrls: ['./muestras.component.scss']
 })
 export class MuestrasComponent implements OnInit {
   columnasMaduracion=["cata", "ph", "acidez", "grado_alcoholico", "fecha", "acciones"];
@@ -56,7 +56,6 @@ export class MuestrasComponent implements OnInit {
     this.cargarVendimia();
     this.cargarConservacion();
   }
-
 
   cargarMaduracion(){
     this._servicioAPI.devolverTodas("maduracion").subscribe(datos=>{

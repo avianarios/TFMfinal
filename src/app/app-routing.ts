@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
-import { AterrizajeDisposicionComponent } from './shared/components/aterrizaje-disposicion/aterrizaje-disposicion.component';
+  import { AterrizajeDisposicionComponent } from './shared/components/aterrizaje-disposicion/aterrizaje-disposicion.component';
 //import { AdminLayoutCimport { TokenResponse } from '../../../models/token.interface';omponent } from './compartido/components/admin-layout/admin-layout.component';
 //import { ConfparametrosComponent } from './vistas/confparametros/confparametros.component';
 //import { AterrizajeComponent } from './vistas/aterrizaje/aterrizaje.component';
@@ -12,18 +12,17 @@ import { AterrizajeDisposicionComponent } from './shared/components/aterrizaje-d
 //const routes: Routes = [
 export const rootRouterConfig: Routes = [
 //    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
-    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
+    { path: '', redirectTo: 'aterrizaje/portada', pathMatch: 'full' },
     {
       path: 'aterrizaje',
       component: AterrizajeDisposicionComponent,
       children:[
-/*
-    {
-      path: 'aterrizaje',
-      loadChildren: './vistas/aterrizaje/aterrizaje.module#AterrizajeModule',
-      data: { title: 'Inicio de sesión' }
-    },*/
       {
+        path: 'portada',
+        loadChildren: './vistas/aterrizaje/aterrizaje.module#AterrizajeModule',
+        data: { title: 'Inicio de sesión' }
+      },
+        {
         path: 'acceso',
         loadChildren: './vistas/aterrizaje/acceso/acceso.module#AccesoModule',
         data: { title: 'Acceso' }

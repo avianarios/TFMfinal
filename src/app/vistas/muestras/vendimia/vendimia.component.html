@@ -1,1 +1,70 @@
-<p>vendimia works!</p>
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h5>
+    Nueva muestra en la fase de maduración
+  </h5>
+  <form [formGroup]="formulario" (submit)="guardar()">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label for="acidez">acidez</mat-label>
+        <input matInput
+          name="acidez"
+          formControlName="acidez"
+        />
+        <mat-error *ngIf = "formulario.controls['acidez'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['acidez'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label for="ph">ph</mat-label>
+        <input matInput
+          name="ph"
+          formControlName="ph"
+        />
+        <mat-error *ngIf = "formulario.controls['ph'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['ph'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="temperatura">temperatura</mat-label>
+        <input matInput
+          name="temperatura"
+          formControlName="temperatura"
+        />
+        <mat-error *ngIf = "formulario.controls['temperatura'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['temperatura'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="densidad">Densidad</mat-label>
+        <input matInput
+        name="densidad"
+        formControlName="densidad"
+        />
+        <mat-error *ngIf = "formulario.controls['densidad'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['densidad'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">Guardar</button>
+      <button mat-button color="primary" type="button" routerLink="/admin/muestras">Cancelar</button>
+    </div>
+    </div>
+  </form>
+</div>

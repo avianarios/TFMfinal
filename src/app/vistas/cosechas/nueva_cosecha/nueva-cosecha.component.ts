@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { APIService } from '../../../shared/servicios/API.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { CosechasService } from '../../../shared/servicios/cosechas.service';
 
 export interface Vino {
   valor: string;
@@ -19,9 +19,10 @@ export interface Vino {
 @Component({
   selector: 'app-nueva-cosecha',
   templateUrl: './nueva-cosecha.component.html',
-  styleUrls: ['./nueva-cosecha.component.css']
+  styleUrls: ['./nueva-cosecha.component.scss']
 })
 export class NuevaCosechaComponent implements OnInit {
+
   formulario: FormGroup;
   vinos: Vino[] = [
    {valor: 'tinto', mostrar: 'Tinto'},
@@ -29,10 +30,10 @@ export class NuevaCosechaComponent implements OnInit {
   ];
 
   constructor(
+    private _servicioCosechas: CosechasService,
     private _servicioAPI: APIService,
     private _builder: FormBuilder,
-    private _router: Router,
-    private _location: Location
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -43,15 +44,21 @@ export class NuevaCosechaComponent implements OnInit {
     this.formulario = this._builder.group({
       tipo_vino: new FormControl('',Validators.required),
       variedad_uva: new FormControl('',Validators.required),
-      anyo: new FormControl((new Date()).getFullYear(), Validators.required),
+      anyo: new FormControl((new Date()).getFullYear(), Validators.required)
     });
   }
 
   guardarCosecha(){
     this.formulario.value.actual=1;
-    this._servicioAPI.guardar("cosecha", JSON.stringify(this.formulario.value)).subscribe(datos=>{
-      //this._router.navigateByUrl('/admin/cosechas');
-      this._location.back();
+    const nuevaCosecha=JSON.stringify(this.formulario.value);
+    const elegida=this._servicioCosechas.devolverCosechaElegida();
+
+    const sinActual={"actual":"0"};
+    this._servicioAPI.actualizar("cosecha", elegida["id_cosecha"], sinActual).subscribe(datos=>{
+      this._servicioAPI.guardar("cosecha", nuevaCosecha).subscribe(datos=>{
+        this._servicioCosechas.elegirCosecha(nuevaCosecha);
+        this._router.navigateByUrl('/admin/configuracion');
+      });
     });
   }
 

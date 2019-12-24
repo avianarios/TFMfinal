@@ -1,101 +1,176 @@
-<!--<div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="32px">-->
-<!--<div
-  fxLayout="row wrap"
-  fxLayout.lt-sm="column"
-  fxLayoutGap="32px"
-  fxLayoutAlign="center center">-->
-
-  <!--<section fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayout="column" fxLayoutAlign="center">-->
 <section fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <section *ngIf="paso==1 || paso==11" fxLayout="column" fxLayoutAlign="center">
-    <legend fxLayoutAlign="center center">
-      La cosecha sobre la que se va a trabajar es el vino {{cosechaActual.tipo_vino}} del año {{cosechaActual.anyo}} y de la uva {{cosechaActual.variedad_uva}}
-    </legend>
-    <div fxLayout="row" fxLayoutAlign="space-between">
-      <!--<button mat-button color="primary" routerLink="/admin/maduracion">Nueva cosecha</button>-->
-      <button mat-button color="primary" routerLink="/admin/cosechas/nuevaCosecha">Usar una nueva cosecha</button>
-      <button mat-button color="primary" (click)="cambiarPaso(11)">Elegir otra</button>
-      <button mat-button color="primary" (click)="cambiarPaso(2)">Continuar sin cambios</button>
+  <div id="accordion">
+
+    <div class="card">
+      <div class="card-header" id="headingUno" fxFlex fxLayout="row">
+        <div fxFlex fxLayout="column">
+          <h5 class="mb-0">
+            Cosecha actual
+          </h5>
+          <small class="ml-5">
+            {{cosechaActual.tipo_vino}} / {{cosechaActual.anyo}} / uva {{cosechaActual.variedad_uva}}
+          </small>
+        </div>
+        <button mat-button class="collapsed" data-toggle="collapse" data-target="#collapseUno" aria-expanded="false" aria-controls="collapseUno">
+          Ver</button>
+      </div>
+      <div id="collapseUno" class="collapse" aria-labelledby="headingUno" data-parent="#accordion">
+        <div class="card-body">
+          <section *ngIf="paso==11" fxLayout="column" fxLayoutAlign="center">
+           <table mat-table [dataSource]="datosCosechas" matSort class="tabla_muestras">
+            <ng-container matColumnDef="tipo_vino">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
+            </ng-container>
+            <ng-container matColumnDef="variedad_uva">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Variedad de uva </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.variedad_uva}} </td>
+            </ng-container>
+            <ng-container matColumnDef="anyo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.anyo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones</th>
+              <td mat-cell *matCellDef="let cosecha">
+                <button mat-button color="primary" (click)="cambiarEleccion(cosecha)">Elegir</button>
+               </td>
+            </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnasCosechas"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasCosechas;"></tr>
+            </table>
+            <mat-paginator #paginador [pageSizeOptions]="[5, 10, 15, 20, 50]" showFirstLastButtons></mat-paginator>
+          </section>
+          <div *ngIf="paso!=11" class="text-center">
+            <!--<a routerLink="/admin/cosechas/nuevaCosecha">Usar una nueva cosecha</a>
+            <a (click)="cambiarPaso(11)">Elegir una existente</a>-->
+            <button mat-button color="primary" routerLink="/admin/cosechas/nuevaCosecha">Usar una nueva</button> |
+            <button mat-button color="primary" (click)="cambiarPaso(11)">Elegir una existente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header" id="headingTwo" fxFlex fxLayout="row">
+        <div fxFlex fxLayout="column">
+          <h5 class="mb-0">
+            Parámetros de la cosecha elegida
+          </h5>
+          <small class="ml-5">
+            No se han definido
+          </small>
+        </div>
+        <button *ngIf="!hayParametros" mat-button color="primary" routerLink="/admin/configuracion/parametros">Definirlos</button>
+      </div>
+      <!--<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">-->
+      <div *ngIf="hayParametros && this.parametrosActualesCargados | async">
+        <div class="card-body">
+          <table mat-table [dataSource]="datosParametros" class="tabla_muestras">
+            <ng-container matColumnDef="sulfuroso">
+              <th mat-header-cell *matHeaderCellDef> Sulfuroso </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.sulfuroso}} </td>
+            </ng-container>
+            <ng-container matColumnDef="grado">
+              <th mat-header-cell *matHeaderCellDef> Grado alcohólico </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.grado}} </td>
+            </ng-container>
+            <ng-container matColumnDef="gluconico">
+              <th mat-header-cell *matHeaderCellDef> Ácido glucónico </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.gluconico}} </td>
+            </ng-container>
+            <ng-container matColumnDef="malico">
+              <th mat-header-cell *matHeaderCellDef> Ácido málico</th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.malico}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cata">
+              <th mat-header-cell *matHeaderCellDef> Cata</th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.cata}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acidez">
+              <th mat-header-cell *matHeaderCellDef> Acidez </th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.acidez}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ph">
+              <th mat-header-cell *matHeaderCellDef> PH</th>
+              <td mat-cell *matCellDef="let cosecha"> {{cosecha.ph}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones</th>
+              <td mat-cell *matCellDef="let cosecha">
+                <button mat-button color="primary" routerLink="/admin/configuracion/parametros">Editar</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnasParametros"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasParametros;"></tr>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+
+
+
+
+<!--
+
+
+  <section fxLayout="column" fxLayoutAlign="center">
+    <div *ngIf="this.datosParametros.data.length>0">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <p>
+          Los parámetros de dicho tipo de vino :
+        </p>
+      </div>
+      <table mat-table [dataSource]="datosParametros" class="tabla_muestras">
+        <ng-container matColumnDef="sulfuroso">
+          <th mat-header-cell *matHeaderCellDef> Sulfuroso </th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.sulfuroso}} </td>
+        </ng-container>
+        <ng-container matColumnDef="grado">
+          <th mat-header-cell *matHeaderCellDef> Grado alcohólico </th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.grado}} </td>
+        </ng-container>
+        <ng-container matColumnDef="gluconico">
+          <th mat-header-cell *matHeaderCellDef> Ácido glucónico </th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.gluconico}} </td>
+        </ng-container>
+        <ng-container matColumnDef="malico">
+          <th mat-header-cell *matHeaderCellDef> Ácido málico</th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.malico}} </td>
+        </ng-container>
+        <ng-container matColumnDef="cata">
+          <th mat-header-cell *matHeaderCellDef> Cata</th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.cata}} </td>
+        </ng-container>
+        <ng-container matColumnDef="acidez">
+          <th mat-header-cell *matHeaderCellDef> Acidez </th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.acidez}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ph">
+          <th mat-header-cell *matHeaderCellDef> PH</th>
+          <td mat-cell *matCellDef="let cosecha"> {{cosecha.ph}} </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones</th>
+          <td mat-cell *matCellDef="let cosecha">
+            <button mat-button color="primary" routerLink="/admin/configuracion/parametros">Editar</button>
+           </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnasParametros"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasParametros;"></tr>
+      </table>
+      <button mat-button color="primary" routerLink="/admin/muestras">Continuar sin cambios</button>
+    </div>
+    <div *ngIf="this.datosParametros.data.length==0">
+      No hay parámetros para este tipo de uva
+      <button mat-button color="primary" routerLink="/admin/configuracion/parametros">Añada uno</button>
     </div>
   </section>
-  <section *ngIf="paso==11" fxLayout="column" fxLayoutAlign="center">
-   <table mat-table [dataSource]="datosCosechas" matSort class="tabla_muestras">
-    <ng-container matColumnDef="tipo_vino">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
-      <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
-    </ng-container>
-    <ng-container matColumnDef="variedad_uva">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Variedad de uva </th>
-      <td mat-cell *matCellDef="let cosecha"> {{cosecha.variedad_uva}} </td>
-    </ng-container>
-    <ng-container matColumnDef="anyo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
-      <td mat-cell *matCellDef="let cosecha"> {{cosecha.anyo}} </td>
-    </ng-container>
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef> Acciones</th>
-      <td mat-cell *matCellDef="let cosecha">
-        <button mat-button color="primary" (click)="cambiarCosechaElegida(cosecha)">Elegir</button>
-       </td>
-    </ng-container>
-      <tr mat-header-row *matHeaderRowDef="columnasCosechas"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnasCosechas;"></tr>
-    </table>
-    <mat-paginator #paginador [pageSizeOptions]="[5, 10, 15, 20, 50]" showFirstLastButtons></mat-paginator>
-  </section>
-
-  <section *ngIf="paso==2" fxLayout="column" fxLayoutAlign="center">
-    <div fxLayout="row" fxLayoutAlign="space-between">
-      <legend fxLayoutAlign="center center">
-        Los parámetros ideales sobre dicho tipo de vino son los siguientes:
-      </legend>
-<!--    <button mat-button color="primary" routerLink="/admin/maduracion">Nuevo parámetro</button>-->
-    </div>  <table mat-table [dataSource]="datosParametros" matSort class="tabla_muestras">
-      <ng-container matColumnDef="tipo_vino">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vino</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_vino}} </td>
-      </ng-container>
-      <ng-container matColumnDef="tipo_uva">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de uva</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.tipo_uva}} </td>
-      </ng-container>
-      <ng-container matColumnDef="sulfuroso">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sulfuroso </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.sulfuroso}} </td>
-      </ng-container>
-      <ng-container matColumnDef="grado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado alcohólico </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.grado}} </td>
-      </ng-container>
-      <ng-container matColumnDef="gluconico">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ácido glucónico </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.gluconico}} </td>
-      </ng-container>
-      <ng-container matColumnDef="malico">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ácido málico</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.malico}} </td>
-      </ng-container>
-      <ng-container matColumnDef="cata">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cata</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.cata}} </td>
-      </ng-container>
-      <ng-container matColumnDef="acidez">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acidez </th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.acidez}} </td>
-      </ng-container>
-      <ng-container matColumnDef="ph">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> PH</th>
-        <td mat-cell *matCellDef="let cosecha"> {{cosecha.ph}} </td>
-      </ng-container>
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef> Acciones</th>
-        <td mat-cell *matCellDef="let cosecha">
-          <button mat-button color="primary" routerLink="/admin/configuracion/parametros">Editar</button>
-         </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="columnasParametros"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnasParametros;"></tr>
-    </table>
-    <button mat-button color="primary" routerLink="/admin/muestras">Continuar sin cambios</button>
-  </section>
 </section>
+-->

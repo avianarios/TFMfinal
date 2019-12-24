@@ -3,8 +3,9 @@ export class definicionCosecha {
   tipo_vino: string;
   anyo:number;
   variedad_uva:string;
-  fecha_recogida:string;
-  fecha_produccion:string;
+  actual: number;
+  recogida:string;
+  produccion:string;
   litros:number;
   kg:number;
 }

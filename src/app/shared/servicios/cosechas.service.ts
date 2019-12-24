@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { definicionCosecha } from '../modelos/cosechas.model';
+import { definicionParametros } from '../modelos/parametros.model';
 import { Observable } from 'rxjs';
+import { APIService } from '../../shared/servicios/API.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,37 +14,49 @@ export class CosechasService {
   cabecera = {
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
    };*/
-   elegida: definicionCosecha;
+   cosechaActual: definicionCosecha;
+   parametrosActuales: definicionParametros;
+   //procedencia: string;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _servicioAPI: APIService
+  ) {}
 
-/*  devolverCosechas(): Observable<any>{
-    return this._http.get<any>(this.base_url+this.url_endpoint);
-  }
-
-  devolverCosecha(id): Observable<any>{
-    return this._http.get<any>(this.base_url+this.url_endpoint+id);
-  }
-
-  guardarCosecha(cuerpo): Observable<any>{
-    console.log (cuerpo);
-    return this._http.post(this.base_url+this.url_endpoint, cuerpo, this.cabecera);
-  }
-
-  eliminarCosecha($id): Observable<any>{
-    return this._http.delete(this.base_url+this.url_endpoint+"/"+$id);
-  }*/
-
-  elegirCosecha($cosecha){
-    this.elegida=$cosecha;
+  elegirCosecha($nuevaCosechaActual){
+      this.cosechaActual=$nuevaCosechaActual;
   }
 
   devolverCosechaElegida(){
-    return (this.elegida);
+    return (this.cosechaActual);
   }
 
-  /*actualizarCosechaElegida($cosecha, $cuerpo){
-    return this._http.put(this.base_url+this.url_endpoint+"/"+$cosecha["id_cosecha"], $cuerpo);
-  }*/
+  guardarCosecha($nuevaCosecha){
+    const sinActual={"actual":"0"};
+    this._servicioAPI.actualizar("cosecha", this.cosechaActual["id_cosecha"], sinActual).subscribe(datos=>{
+      this._servicioAPI.guardar("cosecha", $nuevaCosecha).subscribe(datos=>{
+        this.cosechaActual=$nuevaCosecha;
+      });
+    });
+  }
 
+  elegirParametros(parametros){
+    this.parametrosActuales=parametros;
+  }
+
+  devolverParametros(){
+    return (this.parametrosActuales);
+  }
+
+
+
+
+
+  /*establecerProcedencia(pagina){
+    this.procedencia=pagina;
+  }
+
+  devolverProcedencia(){
+    return (this.procedencia);
+  }*/
 }

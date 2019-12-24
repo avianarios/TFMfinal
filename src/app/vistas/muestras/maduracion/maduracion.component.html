@@ -1,71 +1,65 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <p>
-    <!--Aquí puede introducir muestras en la fase de maduración para la cosecha de vino {{this.elegida.tipo_vino}} del año {{elegida.anyo}}-->
-    Aquí puede introducir muestras en la fase de maduración para la cosecha de vino RELLENAR del año RELLENAR
-  </p>
-    <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
-    <fieldset name="agregarMuestra">
-      <legend>
-        Agregar muestra
-      </legend>
-    <form [formGroup]="formulario" (submit)="guardar()">
-      <div fxFlex fxLayout="row">
-        <mat-form-field>
-          <mat-label for="cata">cata</mat-label>
-          <input matInput
-            name="cata"
-            formControlName="cata"
-          />
-          <mat-error *ngIf = "formulario.controls['cata'].hasError('pattern')">
-            <strong>Se necesita un valor numérico</strong>
-          </mat-error>
-          <mat-error *ngIf = "formulario.controls['cata'].hasError('required')">
-            <strong>Campo obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+  <h5>
+    Nueva muestra en la fase de maduración
+  </h5>
+  <form [formGroup]="formulario" (submit)="guardar()">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label for="cata">cata</mat-label>
+        <input matInput
+          name="cata"
+          formControlName="cata"
+        />
+        <mat-error *ngIf = "formulario.controls['cata'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['cata'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
 
 
-        <mat-form-field>
-          <mat-label for="ph">ph</mat-label>
-          <input matInput
-            name="ph"
-            formControlName="ph"
-          />
-          <mat-error *ngIf = "formulario.controls['ph'].hasError('pattern')">
-            <strong>Se necesita un valor numérico</strong>
-          </mat-error>
-          <mat-error *ngIf = "formulario.controls['ph'].hasError('required')">
-            <strong>Campo obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label for="ph">ph</mat-label>
+        <input matInput
+          name="ph"
+          formControlName="ph"
+        />
+        <mat-error *ngIf = "formulario.controls['ph'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['ph'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label for="acidez">acidez</mat-label>
-          <input matInput
-            name="acidez"
-            formControlName="acidez"
-          />
-          <mat-error *ngIf = "formulario.controls['acidez'].hasError('pattern')">
-            <strong>Se necesita un valor numérico</strong>
-          </mat-error>
-          <mat-error *ngIf = "formulario.controls['acidez'].hasError('required')">
-            <strong>Campo obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label for="acidez">acidez</mat-label>
+        <input matInput
+          name="acidez"
+          formControlName="acidez"
+        />
+        <mat-error *ngIf = "formulario.controls['acidez'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['acidez'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label for="grado_alcoholico">grado alcohólico</mat-label>
-          <input matInput
-          name="grado_alcoholico"
-          formControlName="grado_alcoholico"
-          />
-          <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('pattern')">
-            <strong>Se necesita un valor numérico</strong>
-          </mat-error>
-          <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('required')">
-            <strong>Campo obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label for="grado_alcoholico">grado alcohólico</mat-label>
+        <input matInput
+        name="grado_alcoholico"
+        formControlName="grado_alcoholico"
+        />
+        <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('pattern')">
+          <strong>Se necesita un valor numérico</strong>
+        </mat-error>
+        <mat-error *ngIf = "formulario.controls['grado_alcoholico'].hasError('required')">
+          <strong>Campo obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
 
   <!--Al enviar los valores, Datepicker envía NULL
         <mat-form-field>
@@ -90,13 +84,11 @@
             <strong>Campo obligatorio</strong>
           </mat-error>
         </mat-form-field>-->
-
-        <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
-
-          Guardar
-        </button>
-        <button mat-button color="primary" type="button" routerLink="/admin/muestras">Cancelar</button>
-      </div>
-    </form>
-  </fieldset>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">Guardar</button>
+      <button mat-button color="primary" type="button" routerLink="/admin/muestras">Cancelar</button>
+    </div>
+    </div>
+  </form>
+  <!--</fieldset>-->
 </div>

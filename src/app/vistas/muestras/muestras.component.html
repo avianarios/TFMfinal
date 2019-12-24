@@ -6,147 +6,199 @@ ng-container más elegante que <div *ngIf, pero descuadra los elementos>
 <ng-container *ngIf="this.filtrados_conservacion.length>0; then tabla_conservacion; else noTabla_conservacion"></ng-container>-->
 
 
-<section fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <section class="tabla_muestras">
-      <div fxLayout="row" fxLayoutAlign="space-between">
-        <legend>
-          Fase de maduración
-          <div *ngIf="this.filtrados_maduracion.length==0" class="sin_muestras">
-            No hay muestras en esta fase para la cosecha elegida
+
+  <section fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <div id="accordion">
+
+      <div class="card">
+        <div class="card-header" id="headingUno" fxFlex fxLayout="row">
+          <div fxFlex fxLayout="column">
+            <h5 class="mb-0">
+              Fase de maduración
+            </h5>
+            <div *ngIf="this.filtrados_maduracion.length==0">
+              <small class="ml-4">
+                No hay muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
+            <div *ngIf="this.filtrados_maduracion.length!=0">
+              <small class="ml-4">
+                Hay {{this.filtrados_maduracion.length}} muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
           </div>
-          <!--<ng-template #noTabla_maduracion>
-            No hay muestras
-          </ng-template>-->
-        </legend>
-        <button mat-button color="primary" routerLink="/admin/maduracion">Nueva muestra</button>
-      </div>
+          <button *ngIf="this.filtrados_maduracion.length!=0" mat-button class="collapsed" data-toggle="collapse" data-target="#collapseUno" aria-expanded="false" aria-controls="collapseUno">
+            Ver
+          </button>
+          <button mat-button color="primary" routerLink="/admin/maduracion">Nueva muestra</button>
+        </div>
+        <div id="collapseUno" class="collapse" aria-labelledby="headingUno" data-parent="#accordion">
+          <div class="card-body">
 
-      <!--<ng-template #tabla_maduracion>-->
-      <div *ngIf="this.filtrados_maduracion.length>0">
-        <table mat-table [dataSource]="datosMaduracion" matSort class="tabla_muestras">
-          <ng-container matColumnDef="cata">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cata </th>
-            <td mat-cell *matCellDef="let muestra"> {{muestra.cata}} </td>
-          </ng-container>
-          <ng-container matColumnDef="ph">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
-            <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
-          </ng-container>
-          <ng-container matColumnDef="acidez">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
-            <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
-          </ng-container>
-          <ng-container matColumnDef="grado_alcoholico">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado alcohólico </th>
-            <td mat-cell *matCellDef="let muestra"> {{muestra.grado_alcoholico}} </td>
-          </ng-container>
-          <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-            <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
-          </ng-container>
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef> Acciones</th>
-            <td mat-cell *matCellDef="let muestra">
-              <button mat-button color="primary" (click)="eliminar('maduracion', muestra.id_muestra)">Eliminar</button>
-             </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columnasMaduracion"></tr>
-          <tr mat-row *matRowDef="let row; columns: columnasMaduracion;"></tr>
-        </table>
-        <div *ngIf="this.filtrados_maduracion.length>5">
-          <mat-paginator #paginador [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+            <div *ngIf="this.filtrados_maduracion.length>0" fxFlex fxLayoutAlign="center">
+              <table mat-table [dataSource]="datosMaduracion" matSort class="tabla_muestras">
+                <ng-container matColumnDef="cata">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Cata </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.cata}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ph">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acidez">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
+                </ng-container>
+                <ng-container matColumnDef="grado_alcoholico">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado alcohólico </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.grado_alcoholico}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                  <td mat-cell *matCellDef="let muestra">
+                    <button mat-button color="primary" (click)="eliminar('maduracion', muestra.id_muestra)">Eliminar</button>
+                   </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnasMaduracion"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasMaduracion;"></tr>
+              </table>
+              <div *ngIf="this.filtrados_maduracion.length>5">
+                <mat-paginator #paginador [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+
+          </div>
         </div>
       </div>
-    <!--</ng-template>-->
-  </section>
 
-  <section fxLayout="column" fxLayoutAlign="center" class="tabla_muestras">
-    <div fxLayout="row" fxLayoutAlign="space-between">
-      <legend>
-        Fase de vendimia
-        <div *ngIf="this.filtrados_vendimia.length==0" class="sin_muestras">
-          No hay muestras en esta fase para la cosecha elegida
+      <div class="card">
+        <div class="card-header" id="headingDos" fxFlex fxLayout="row">
+          <div fxFlex fxLayout="column">
+            <h5 class="mb-0">
+              Fase de vendimia
+            </h5>
+            <div *ngIf="this.filtrados_vendimia.length==0">
+              <small class="ml-4">
+                No hay muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
+            <div *ngIf="this.filtrados_vendimia.length!=0">
+              <small class="ml-4">
+                Hay {{this.filtrados_vendimia.length}} muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
+          </div>
+          <button *ngIf="this.filtrados_vendimia.length!=0" mat-button class="collapsed" data-toggle="collapse" data-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos">
+            Ver
+          </button>
+          <button mat-button color="primary" routerLink="/admin/vendimia">Nueva muestra</button>
         </div>
-      </legend>
-      <button mat-button color="primary" routerLink="/admin/vendimia">Nueva muestra</button>
-    </div>
-    <div *ngIf="this.filtrados_vendimia.length>0">
-      <table mat-table [dataSource]="datosVendimia" matSort class="tabla_muestras">
-        <ng-container matColumnDef="ph">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
-        </ng-container>
-        <ng-container matColumnDef="acidez">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
-        </ng-container>
-        <ng-container matColumnDef="temperatura">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperatura</th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.temperatura}} </td>
-        </ng-container>
-        <ng-container matColumnDef="densidad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Densidad</th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.densidad}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
-        </ng-container>
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef> Acciones</th>
-          <td mat-cell *matCellDef="let muestra">
-            <button mat-button color="primary" (click)="eliminar('vendimia', muestra.id_muestra)">Eliminar</button>
-           </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="columnasVendimia"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasVendimia;"></tr>
-      </table>
-      <div *ngIf="this.filtrados_vendimia.length>5">
-        <mat-paginator #paginador2 [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+        <div id="collapseDos" class="collapse" aria-labelledby="headingDos" data-parent="#accordion">
+          <div class="card-body">
+
+            <div *ngIf="this.filtrados_vendimia.length>0" fxFlex fxLayoutAlign="center">
+              <table mat-table [dataSource]="datosVendimia" matSort class="tabla_muestras">
+                <ng-container matColumnDef="ph">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acidez">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
+                </ng-container>
+                <ng-container matColumnDef="temperatura">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperatura</th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.temperatura}} </td>
+                </ng-container>
+                <ng-container matColumnDef="densidad">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Densidad</th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.densidad}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                  <td mat-cell *matCellDef="let muestra">
+                    <button mat-button color="primary" (click)="eliminar('vendimia', muestra.id_muestra)">Eliminar</button>
+                   </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnasVendimia"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasVendimia;"></tr>
+              </table>
+              <div *ngIf="this.filtrados_vendimia.length>5">
+                <mat-paginator #paginador2 [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingTres" fxFlex fxLayout="row">
+          <div fxFlex fxLayout="column">
+            <h5 class="mb-0">
+              Fase de conservación
+            </h5>
+            <div *ngIf="this.filtrados_conservacion.length==0">
+              <small class="ml-4">
+                No hay muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
+            <div *ngIf="this.filtrados_conservacion.length!=0">
+              <small class="ml-4">
+                Hay {{this.filtrados_conservacion.length}} muestras en esta fase para la cosecha elegida
+              </small>
+            </div>
+          </div>
+          <button *ngIf="this.filtrados_conservacion.length!=0" mat-button class="collapsed" data-toggle="collapse" data-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres">
+            Ver
+          </button>
+          <button mat-button color="primary" routerLink="/admin/conservacion">Nueva muestra</button>
+        </div>
+        <div id="collapseTres" class="collapse" aria-labelledby="headingTres" data-parent="#accordion">
+          <div class="card-body">
+
+            <div *ngIf="this.filtrados_conservacion.length>0" fxFlex fxLayoutAlign="center">
+              <table mat-table [dataSource]="datosConservacion" matSort class="tabla_muestras">
+                <ng-container matColumnDef="sulfuroso">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Sulfuroso </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.sulfuroso}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ph">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acidez">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                  <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                  <td mat-cell *matCellDef="let muestra">
+                    <button mat-button color="primary" (click)="eliminar('conservacion', muestra.id_muestra)">Eliminar</button>
+                   </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnasConservacion"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasConservacion;"></tr>
+              </table>
+              <div *ngIf="this.filtrados_conservacion.length>5">
+                <mat-paginator #paginador3 [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   </section>
-
-  <section fxLayout="column" fxLayoutAlign="center" class="tabla_muestras">
-    <div fxLayout="row" fxLayoutAlign="space-between">
-      <legend>
-        Fase de conservación
-        <div *ngIf="this.filtrados_conservacion.length==0" class="sin_muestras">
-          No hay muestras en esta fase para la cosecha elegida
-        </div>
-      </legend>
-      <button mat-button color="primary" routerLink="/admin/vendimia">Nueva muestra</button>
-    </div>
-    <div *ngIf="this.filtrados_conservacion.length>0">
-      <table mat-table [dataSource]="datosConservacion" matSort class="tabla_muestras">
-        <ng-container matColumnDef="sulfuroso">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sulfuroso </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.sulfuroso}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ph">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ph </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.ph}} </td>
-        </ng-container>
-        <ng-container matColumnDef="acidez">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> acidez </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.acidez}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-          <td mat-cell *matCellDef="let muestra"> {{muestra.fecha}} </td>
-        </ng-container>
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef> Acciones</th>
-          <td mat-cell *matCellDef="let muestra">
-            <button mat-button color="primary" (click)="eliminar('conservacion', muestra.id_muestra)">Eliminar</button>
-           </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="columnasConservacion"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasConservacion;"></tr>
-      </table>
-      <div *ngIf="this.filtrados_conservacion.length>5">
-        <mat-paginator #paginador3 [pageSizeOptions]="[5, 10, 15, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-      </div>
-    </div>
-  </section>
-</section>

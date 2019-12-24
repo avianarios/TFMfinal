@@ -1,0 +1,37 @@
+@import '../../shared/estilos.scss';
+
+
+html{
+  height: 100%;
+}
+
+form input.ng-invalid.ng-touched {
+  border-color: #FA787E;
+}
+
+form{
+  margin-top: 25px;
+  width: 50%;
+}
+
+mat-form-field{
+  margin-right: 10px;
+  width:100px;
+}
+
+mat-label{
+  font-size: 0.75em;
+}
+
+.error{
+  color: red;
+  font-size: 0.8em;
+}
+
+.gris{
+  color: grey;
+}
+
+legend{
+  margin: 30px 0;
+}

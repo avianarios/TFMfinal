@@ -5,7 +5,7 @@ import { SesionService } from 'src/app/shared/servicios/sesion.service';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.template.html',
-  styleUrls: ['./admin-layout.css']
+  styleUrls: ['./admin-layout.scss']
 })
 
 export class AdminLayoutComponent implements OnInit{

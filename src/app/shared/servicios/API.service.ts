@@ -28,7 +28,7 @@ export class APIService {
     return this._http.delete(this.base_url+$url_endpoint+"/"+$id);
   }
 
-  actualizar($url_endpoint, $id, $cuerpo){
+  actualizar($url_endpoint, $id, $cuerpo): Observable<any>{
     return this._http.put(this.base_url+$url_endpoint+"/"+$id, $cuerpo);
   }
 }

@@ -4,7 +4,7 @@ import { APIService } from '../../shared/servicios/API.service';
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
-  styleUrls: ['./estadisticas.component.css']
+  styleUrls: ['./estadisticas.component.scss']
 })
 export class EstadisticasComponent implements OnInit {
   campos:any[]=[];

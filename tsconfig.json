@@ -2,6 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@css/*": ["src/app/shared/*"],
+      "@components/*": ["app/somewhere/deeply/nested/*"],
+      "@environments/*": ["environments/*"]
+    },
     "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
