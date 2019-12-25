@@ -11,7 +11,7 @@ $fuentePrincipal: 'Quicksand', sans-serif;
 
 .contenedorCuerpo{
   background-color: $colorFondoCuerpo;
-  height: calc(100vh - 58px);
+  height: calc(100vh - 85px);
   padding-top: 1em;
   font-family: $fuentePrincipal;
   color: $colorTexto;
@@ -86,6 +86,10 @@ th, td{
   cursor: pointer;
 }
 
+.navbar-brand:hover{
+  box-shadow: none;
+}
+
 .carousel-item > img { width: 50%; margin: auto; }
 
 h3{
@@ -103,22 +107,28 @@ h3{
 
 
 .card{
-  width: 600px;
+  width: 625px;
 
 }
 
-.mat-header-cell{
+.mat-header-cell, th{
   padding: 10px;
   text-align: center;
+  font-size: 14px;
 //  background-color: $colorFondoCuerpo;
 
 }
 
-.mat-cell{
+.mat-cell, td{
 //  background-color: $colorFondoCuerpo;
   text-align: center;
+  font-size: 12px;
 }
 
-.mat-table{
+.mat-table, table{
   font-family: $fuentePrincipal;
+}
+
+.canvas{
+
 }

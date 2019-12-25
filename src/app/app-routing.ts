@@ -76,12 +76,12 @@ export const rootRouterConfig: Routes = [
           path: 'conservacion',
           loadChildren: './vistas/muestras/conservacion/conservacion.module#ConservacionModule',
           data: { title: 'Conservacion', breadcrumb: 'Conservacion' }
-        }/*,
+        },
         {
           path: 'estadisticas',
           loadChildren: './vistas/estadisticas/estadisticas.module#EstadisticasModule',
           data: { title: 'Estadísticas', breadcrumb: 'Estadísticas' }
-        }*/
+        }
       ]
     },
     {
