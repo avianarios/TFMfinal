@@ -19,22 +19,25 @@ export class EstadisticasComponent implements OnInit {
   }];
   public lineChartLabels: Label[] = [];
 
-  public lineChartData2: ChartDataSets[] = [{
-    data: [],
-    label: ''
-  }];
+  //maximasSeriesPorGrafico debe estar acorde al número de líneas de lineChartData2
+  public maximasSeriesPorGrafico=3;
+  public lineChartData2: ChartDataSets[] = [
+    {data: [], label: ''},
+    {data: [], label: ''},
+    {data: [], label: ''}
+  ];
+
   public lineChartLabels2: Label[] = [];
 
-  /*public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' },
-    { data: [18, 38, 20, 16, 26, 17, 40], label: 'Series D' }
-  ];
-  public lineChartLabels: Label[] = ['Enero', 'Febrero', 'March', 'April', 'May', 'June', 'July'];*/
+  public lineChartData3: ChartDataSets[] = [
+    { data: [5, 3, 3, 4, 2, 1], label: 'PH' },
+    { data: [15, 13, 13, 14, 1, 2], label: 'PH2' }
 
-  //public lineChartOptions: (ChartOptions & { annotation: any }) = {
-  public lineChartOptions: (ChartOptions) = {
+  ];
+  public lineChartLabels3: Label[] = ['Enero', 'Febrero', 'March', 'April', 'May', 'jj'];
+
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+  //public lineChartOptions: (ChartOptions) = {
     responsive: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
@@ -55,7 +58,7 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       ]
-    }/*,
+    },
     //Esto saca una línea vertical en pantalla con la leyenda LineAnno
     annotation: {
       annotations: [
@@ -63,17 +66,30 @@ export class EstadisticasComponent implements OnInit {
           type: 'line',
           mode: 'vertical',
           scaleID: 'x-axis-0',
-          value: 'March',
+          value: 'April',
           borderColor: 'orange',
           borderWidth: 2,
           label: {
             enabled: true,
             fontColor: 'orange',
-            content: 'LineAnno'
+            content: 'vendimia'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: 'May',
+          borderColor: 'Blue',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            fontColor: 'orange',
+            content: 'conservación'
           }
         },
       ],
-    },*/
+    },
   };
   public lineChartColors: Color[] = [
     { // grey
@@ -111,9 +127,9 @@ export class EstadisticasComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-  //public lineChartPlugins = [pluginAnnotations];
+  public lineChartPlugins = [pluginAnnotations];
 
-  datosGrafico:Array<number>=[];
+//  datosGrafico:Array<number>=[];
   etiqueta:string="";
   etiquetasLinea: Label[]=[];
   elegida: definicionCosecha;
@@ -129,34 +145,86 @@ export class EstadisticasComponent implements OnInit {
 ) { }
 
   ngOnInit() {
-
     this.elegida=this._servicioCosechas.devolverCosechaElegida();
 
-    this.etiqueta="PH Maduración";
-    this._servicioAPI.devolverParametrosFase("estadisticas", "maduracion", "ph", /*this.elegida.id_cosecha*/40).subscribe(datos=>{
+    let aux:Array<any>=[];
+    this.etiqueta="PH cosecha "+this.elegida.id_cosecha;
+    let datosGrafico:Array<number>=[];
+    this._servicioAPI.devolverParametro("estadisticas", "ph", this.elegida.id_cosecha).subscribe(datos=>{
       datos.forEach(elemento=>{
         let fecha=((Object.values(elemento)[1]) as Date);
         this.etiquetasLinea.push(this._datepipe.transform(fecha,"dd-MM-yyyy"));
-        this.datosGrafico.push((Object.values(elemento)[0]) as number);
+        datosGrafico.push((Object.values(elemento)[0]) as number);
       });
-      this.lineChartData[0].data=this.datosGrafico;
+      this.lineChartData[0].data=datosGrafico;
       this.lineChartData[0].label=this.etiqueta;
       this.lineChartLabels=this.etiquetasLinea;
-
       this.chart.update();
     });
+    //this.rellenaDatosHistoricos("ph", 2);
 
+    this.rellenaDatosHistoricos("ph", 2);
+  }
 
+  //rellena el gráfico con datos sobre el parámetro $parametro de las numSeries últimas cosechas
+  //como máximo admite tres cosecha (habría que meter más filas vacías en la definición de lineChartData2 al principio)
+    rellenaDatosHistoricos($parametro, $numSeries){
+     //this.lineChartData2.push ({data: [], label: ''});
 
+      let maxima=0;
+      let etiquetasLinea;
+      //elimina las líneas vacías de lineChartData2 para que no aparezcan en la tabla filas sin datos
+      this.lineChartData2.splice(1,this.maximasSeriesPorGrafico-$numSeries);
 
-/*//este es el formato que hay que conseguir
-public lineChartData: ChartDataSets[] = [
-  { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-  { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' },
-  { data: [18, 38, 20, 16, 26, 17, 40], label: 'Series D' }
-];*/
+      let id_cosechas:Array<number>=[]
+      this._servicioAPI.devolverTodas("cosecha").subscribe(cosechas=>{
+        cosechas.length=Math.min($numSeries, this.maximasSeriesPorGrafico);
+        cosechas.forEach(cosecha=>{
+          id_cosechas.push(cosecha['id_cosecha']);
+      //en id_cosechas tengo los id de las últimas cosechas
+        });
 
+        let i=0;
+        cosechas.forEach(cosecha=>{
+          let datosGrafico:Array<number>=[];
+          //etiqueta visible en la leyenda
+          this.etiqueta=$parametro+" cosecha "+cosecha['tipo_vino']+"/"+cosecha['anyo'];
+
+          //obtengo los datos de ese parámetro para cada una de las X últimas cosechas
+          this._servicioAPI.devolverParametro("estadisticas", $parametro, cosecha['id_cosecha']).subscribe(datos=>{
+
+            //meto los valores de cada parámetro
+            datos.forEach(elemento=>{
+
+              etiquetasLinea=[];
+
+              /*Si el gráfico solo muestra una serie, se usa como leyenda de la línea X la fecha de toma de la muestra
+              Si se muestra más de una serie de distintos años, se usa como muestra el número de muestra (pueden no haberse
+               tomado las muestras en la misma fecha ni haberse tomado el mismo número de muestras)*/
+              if ($numSeries==1){
+                let fecha=((Object.values(elemento)[1]) as Date);
+                etiquetasLinea.push(this._datepipe.transform(fecha,"dd-MM-yyyy"));
+              }else{
+
+                /*calculo el número máximo de muestras tomadas en cada cosecha para mostrar la escala en la línea X del gráfico
+                ya que podrían no haberse tomado el mismo número de muestras en las distintas series*/
+                if (datos.length>maxima)
+                maxima=datos.length;
+                for (let $i=1; $i<=maxima; $i++)
+                etiquetasLinea.push($i);
+              }
+
+              //los meto en una matriz temporal
+              datosGrafico.push((Object.values(elemento)[0]) as number);
+            });
+            this.lineChartData2[i].data=datosGrafico;
+            this.lineChartData2[i].label=this.etiqueta;
+            this.lineChartLabels2=etiquetasLinea;
+            i++;
+          });
+
+      });
+    });
   }
 
   public randomize(): void {
@@ -196,8 +264,16 @@ public lineChartData: ChartDataSets[] = [
   }
 
   public changeColor() {
-    this.lineChartColors[2].borderColor = 'green';
-    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
+    this.lineChartColors.forEach(color=>{
+        var o = Math.round, r = Math.random, s = 255;
+//        let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+        let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
+        let debil=fuerte.replace(",1)", ",0.1)");
+      color.borderColor=fuerte;
+      color.backgroundColor=debil;
+    });
+    /*this.lineChartColors[2].borderColor = 'green';
+    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;*/
   }
 
   public changeLabel() {

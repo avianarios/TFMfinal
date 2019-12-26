@@ -1,3 +1,4 @@
+
   <div fxFlex fxLayout="column" fxLayoutAlign="center center">
     <div class="flex-item">
       <div style="display: block;">
@@ -32,12 +33,50 @@
       </div>
   </div>
 
+
   <div fxFlex fxLayout="column" fxLayoutAlign="center center">
     <div class="flex-item">
       <div style="display: block;">
       <canvas baseChart width="500" height="400"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
+                  [datasets]="lineChartData2"
+                  [labels]="lineChartLabels2"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  [plugins]="lineChartPlugins"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+    <div class="flex-item">
+      <table class="table table-responsive table-condensed">
+        <tr>
+          <th>
+            Nº de muestra
+          </th>
+          <td *ngFor="let label of lineChartLabels2">{{label}}</td>
+        </tr>
+        <tr *ngFor="let d of lineChartData2; let i=index" [class]="'line-'+i">
+          <th>
+            Valor
+          </th>
+            <td *ngFor="let label of lineChartLabels2; let j=index">{{d && d.data[j]}}</td>
+        </tr>
+      </table>
+    </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
+      </div>
+  </div>
+
+
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <div class="flex-item">
+      <div style="display: block;">
+      <canvas baseChart width="500" height="400"
+                  [datasets]="lineChartData3"
+                  [labels]="lineChartLabels3"
                   [options]="lineChartOptions"
                   [colors]="lineChartColors"
                   [legend]="lineChartLegend"

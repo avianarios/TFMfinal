@@ -32,7 +32,11 @@ export class APIService {
     return this._http.put(this.base_url+$url_endpoint+"/"+$id, $cuerpo);
   }
 
-  devolverParametrosFase($url_endpoint, $fase, $parametro, $id_cosecha){
+  /*devolverParametrosFase($url_endpoint, $fase, $parametro, $id_cosecha){
     return this._http.get<any>(this.base_url+$url_endpoint+"/"+$fase+"/"+$parametro+"/"+$id_cosecha);
+  }*/
+
+  devolverParametro($url_endpoint, $parametro, $id_cosecha){
+    return this._http.get<any>(this.base_url+$url_endpoint+"/"+$parametro+"/"+$id_cosecha);
   }
 }
