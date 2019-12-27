@@ -13,28 +13,15 @@ import { definicionCosecha } from '../../shared/modelos/cosechas.model';
   styleUrls: ['./estadisticas.component.scss']
 })
 export class EstadisticasComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [{
-    data: [],
-    label: ''
-  }];
-  public lineChartLabels: Label[] = [];
-
   //maximasSeriesPorGrafico debe estar acorde al número de líneas de lineChartData2
   public maximasSeriesPorGrafico=3;
-  public lineChartData2: ChartDataSets[] = [
+  public lineChartData: ChartDataSets[] = [
     {data: [], label: ''},
     {data: [], label: ''},
     {data: [], label: ''}
   ];
 
-  public lineChartLabels2: Label[] = [];
-
-  public lineChartData3: ChartDataSets[] = [
-    { data: [5, 3, 3, 4, 2, 1], label: 'PH' },
-    { data: [15, 13, 13, 14, 1, 2], label: 'PH2' }
-
-  ];
-  public lineChartLabels3: Label[] = ['Enero', 'Febrero', 'March', 'April', 'May', 'jj'];
+  public lineChartLabels: Label[] = [];
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
   //public lineChartOptions: (ChartOptions) = {
@@ -130,7 +117,6 @@ export class EstadisticasComponent implements OnInit {
   public lineChartPlugins = [pluginAnnotations];
 
 //  datosGrafico:Array<number>=[];
-  etiqueta:string="";
   etiquetasLinea: Label[]=[];
   elegida: definicionCosecha;
 
@@ -138,7 +124,6 @@ export class EstadisticasComponent implements OnInit {
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   constructor(
-    //private _servicioCosechas: CosechasService,
     private _datepipe: DatePipe,
     private _servicioCosechas: CosechasService,
     private _servicioAPI: APIService
@@ -146,35 +131,22 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit() {
     this.elegida=this._servicioCosechas.devolverCosechaElegida();
+    //this.rellenarDatosHistoricos("ph", 1, this.lineChartData, this.lineChartLabels);
+    //this.rellenarDatosHistoricos("ph", 2, this.lineChartData2, this.lineChartLabels2);
+    this.rellenarDatosHistoricos("ph", 2, this.lineChartData, this.lineChartLabels);
 
-    let aux:Array<any>=[];
-    this.etiqueta="PH cosecha "+this.elegida.id_cosecha;
-    let datosGrafico:Array<number>=[];
-    this._servicioAPI.devolverParametro("estadisticas", "ph", this.elegida.id_cosecha).subscribe(datos=>{
-      datos.forEach(elemento=>{
-        let fecha=((Object.values(elemento)[1]) as Date);
-        this.etiquetasLinea.push(this._datepipe.transform(fecha,"dd-MM-yyyy"));
-        datosGrafico.push((Object.values(elemento)[0]) as number);
-      });
-      this.lineChartData[0].data=datosGrafico;
-      this.lineChartData[0].label=this.etiqueta;
-      this.lineChartLabels=this.etiquetasLinea;
-      this.chart.update();
-    });
-    //this.rellenaDatosHistoricos("ph", 2);
-
-    this.rellenaDatosHistoricos("ph", 2);
   }
+
 
   //rellena el gráfico con datos sobre el parámetro $parametro de las numSeries últimas cosechas
   //como máximo admite tres cosecha (habría que meter más filas vacías en la definición de lineChartData2 al principio)
-    rellenaDatosHistoricos($parametro, $numSeries){
+  rellenarDatosHistoricos($parametro, $numSeries, $datosGrafico, $etiquetasEjeX){
      //this.lineChartData2.push ({data: [], label: ''});
-
+      let leyenda="";
       let maxima=0;
       let etiquetasLinea;
       //elimina las líneas vacías de lineChartData2 para que no aparezcan en la tabla filas sin datos
-      this.lineChartData2.splice(1,this.maximasSeriesPorGrafico-$numSeries);
+      $datosGrafico.splice(1,this.maximasSeriesPorGrafico-$numSeries);
 
       let id_cosechas:Array<number>=[]
       this._servicioAPI.devolverTodas("cosecha").subscribe(cosechas=>{
@@ -186,9 +158,9 @@ export class EstadisticasComponent implements OnInit {
 
         let i=0;
         cosechas.forEach(cosecha=>{
-          let datosGrafico:Array<number>=[];
+          let datosGraficoTMP:Array<number>=[];
           //etiqueta visible en la leyenda
-          this.etiqueta=$parametro+" cosecha "+cosecha['tipo_vino']+"/"+cosecha['anyo'];
+          leyenda=$parametro+" cosecha "+cosecha['tipo_vino']+"/"+cosecha['anyo'];
 
           //obtengo los datos de ese parámetro para cada una de las X últimas cosechas
           this._servicioAPI.devolverParametro("estadisticas", $parametro, cosecha['id_cosecha']).subscribe(datos=>{
@@ -215,69 +187,25 @@ export class EstadisticasComponent implements OnInit {
               }
 
               //los meto en una matriz temporal
-              datosGrafico.push((Object.values(elemento)[0]) as number);
+              datosGraficoTMP.push((Object.values(elemento)[0]) as number);
             });
-            this.lineChartData2[i].data=datosGrafico;
-            this.lineChartData2[i].label=this.etiqueta;
-            this.lineChartLabels2=etiquetasLinea;
+            $datosGrafico[i].data=datosGraficoTMP;
+            $datosGrafico[i].label=leyenda;
+            $etiquetasEjeX=etiquetasLinea;
+            //this.lineChartLabels=etiquetasLinea;
             i++;
           });
-
       });
     });
-  }
-
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        this.lineChartData[i].data[j] = this.generateNumber(i);
-      }
-    }
-    this.chart.update();
-  }
-
-  private generateNumber(i: number) {
-    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
-  }
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public hideOne() {
-    const isHidden = this.chart.isDatasetHidden(1);
-    this.chart.hideDataset(1, !isHidden);
-  }
-
-  public pushOne() {
-    this.lineChartData.forEach((x, i) => {
-      const num = this.generateNumber(i);
-      const data: number[] = x.data as number[];
-      data.push(num);
-    });
-    this.lineChartLabels.push(`Label ${this.lineChartLabels.length}`);
   }
 
   public changeColor() {
     this.lineChartColors.forEach(color=>{
         var o = Math.round, r = Math.random, s = 255;
-//        let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
         let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
         let debil=fuerte.replace(",1)", ",0.1)");
       color.borderColor=fuerte;
       color.backgroundColor=debil;
     });
-    /*this.lineChartColors[2].borderColor = 'green';
-    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;*/
-  }
-
-  public changeLabel() {
-    this.lineChartLabels[2] = ['1st Line', '2nd Line'];
-    // this.chart.update();
   }
 }

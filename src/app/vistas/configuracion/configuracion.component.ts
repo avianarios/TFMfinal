@@ -84,6 +84,7 @@ export class ConfiguracionComponent implements OnInit {
       if (datos.length>0){
         this.parametrosActuales=datos[0];
         this.hayParametros=true;
+        //para esperar a que termine de cargar para renderizar el HTML
         this.parametrosActualesCargados=Promise.resolve(true);
         this.datosParametros.data = datos;
         this._servicioCosechas.elegirParametros(datos[0]);

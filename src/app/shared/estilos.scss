@@ -11,7 +11,8 @@ $fuentePrincipal: 'Quicksand', sans-serif;
 
 .contenedorCuerpo{
   background-color: $colorFondoCuerpo;
-  height: calc(100vh - 85px);
+  min-height: calc(100vh - 85px);
+  height: 100%;
   padding-top: 1em;
   font-family: $fuentePrincipal;
   color: $colorTexto;
