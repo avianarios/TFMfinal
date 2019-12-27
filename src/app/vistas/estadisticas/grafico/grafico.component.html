@@ -1,6 +1,7 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
   <div class="flex-item">
     <div style="display: block;">
+      <h5 class="text-center mt-3">{{titulo}}</h5>
     <canvas baseChart width="500" height="400"
                 [datasets]="datosGrafico"
                 [labels]="etiquetasGrafico"
@@ -33,11 +34,3 @@
       <button mat-button color="primary" (click)="changeColor()">Recolorear</button>
     </div>
 </div>
-
-
-
-
-<!--<button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
-<button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button>
-<button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-<button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>-->

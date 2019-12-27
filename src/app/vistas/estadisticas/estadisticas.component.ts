@@ -21,105 +21,31 @@ export class EstadisticasComponent implements OnInit {
     {data: [], label: ''}
   ];
 
-  public lineChartLabels: Label[] = [];
-
-  public lineChartOptions: (ChartOptions & { annotation: any }) = {
-  //public lineChartOptions: (ChartOptions) = {
-    responsive: true,
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
-      yAxes: [
-        {
-          id: 'y-axis-0',
-          position: 'left',
-        },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.1)',
-          },
-          ticks: {
-            fontColor: 'red',
-          }
-        }
-      ]
-    },
-    //Esto saca una línea vertical en pantalla con la leyenda LineAnno
-    annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'April',
-          borderColor: 'orange',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'vendimia'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'May',
-          borderColor: 'Blue',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'conservación'
-          }
-        },
-      ],
-    },
-  };
-  public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(99,12,34,0.3)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
+  public lineChartData2: ChartDataSets[] = [
+    {data: [], label: ''},
+    {data: [], label: ''},
+    {data: [], label: ''}
   ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-  public lineChartPlugins = [pluginAnnotations];
+
+  public lineChartData3: ChartDataSets[] = [
+    {data: [], label: ''},
+    {data: [], label: ''},
+    {data: [], label: ''}
+  ];
+
+  public lineChartData4: ChartDataSets[] = [
+    {data: [], label: ''},
+    {data: [], label: ''},
+    {data: [], label: ''}
+  ];
+
+  public lineChartLabels: Label[] = [];
 
 //  datosGrafico:Array<number>=[];
   etiquetasLinea: Label[]=[];
   elegida: definicionCosecha;
 
+  titulos: Array<string>=["ph de la cosecha actual", "ph de las tres últimas cosechas", "acidez de la cosecha actual", "acidez de las tres últimas cosechas"];
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
@@ -133,7 +59,13 @@ export class EstadisticasComponent implements OnInit {
     this.elegida=this._servicioCosechas.devolverCosechaElegida();
     //this.rellenarDatosHistoricos("ph", 1, this.lineChartData, this.lineChartLabels);
     //this.rellenarDatosHistoricos("ph", 2, this.lineChartData2, this.lineChartLabels2);
-    this.rellenarDatosHistoricos("ph", 2, this.lineChartData, this.lineChartLabels);
+
+    //lineChartLabels es pasado como valor, por lo que no se modifica en el interior de la función si se pasa como argumento
+    //lineChartData, al ser un objeto, es pasado como referencia, por lo que sí se modifica dentro de la función
+    this.rellenarDatosHistoricos("ph", 1, this.lineChartData, this.lineChartLabels);
+    this.rellenarDatosHistoricos("ph", 3, this.lineChartData2, this.lineChartLabels);
+    this.rellenarDatosHistoricos("acidez", 1, this.lineChartData3, this.lineChartLabels);
+    this.rellenarDatosHistoricos("acidez", 3, this.lineChartData4, this.lineChartLabels);
 
   }
 
@@ -191,21 +123,13 @@ export class EstadisticasComponent implements OnInit {
             });
             $datosGrafico[i].data=datosGraficoTMP;
             $datosGrafico[i].label=leyenda;
-            $etiquetasEjeX=etiquetasLinea;
-            //this.lineChartLabels=etiquetasLinea;
+
+            //lineChartLabels es pasado como valor, por lo que no se modifica en el interior de la función si se pasa como argumento
+            //$etiquetasEjeX=etiquetasLinea;
+            this.lineChartLabels=etiquetasLinea;
             i++;
           });
       });
-    });
-  }
-
-  public changeColor() {
-    this.lineChartColors.forEach(color=>{
-        var o = Math.round, r = Math.random, s = 255;
-        let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
-        let debil=fuerte.replace(",1)", ",0.1)");
-      color.borderColor=fuerte;
-      color.backgroundColor=debil;
     });
   }
 }

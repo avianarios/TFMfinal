@@ -15,9 +15,9 @@ import { definicionCosecha } from '../../../shared/modelos/cosechas.model';
 })
 export class GraficoComponent implements OnInit {
   @Input () private datosGrafico:  ChartDataSets[];
+  @Input () private titulo: string;
   @Input () private etiquetasGrafico:  Label[];
   @Input () private coloresLinea:  Color[];
-  valoresCargados: Promise<Boolean>;
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
   //public lineChartOptions: (ChartOptions) = {
@@ -117,4 +117,17 @@ export class GraficoComponent implements OnInit {
   ngOnInit() {
   }
 
+  public changeColor() {
+    this.lineChartColors.forEach(color=>{
+        var o = Math.round, r = Math.random, s = 255;
+        let fuerte='rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
+        let debil=fuerte.replace(",1)", ",0.1)");
+      color.borderColor=fuerte;
+      color.backgroundColor=debil;
+    });
+  }
+
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    //console.log(event, active);
+  }
 }

@@ -1,8 +1,31 @@
   <app-grafico
+    [titulo]="titulos[0]"
     [datosGrafico]="lineChartData"
     [etiquetasGrafico]="lineChartLabels"
     >
   </app-grafico>
+
+  <app-grafico
+    [titulo]="titulos[1]"
+    [datosGrafico]="lineChartData2"
+    [etiquetasGrafico]="lineChartLabels"
+    >
+  </app-grafico>
+
+  <app-grafico
+    [titulo]="titulos[2]"
+    [datosGrafico]="lineChartData3"
+    [etiquetasGrafico]="lineChartLabels"
+    >
+  </app-grafico>
+
+  <app-grafico
+    [titulo]="titulos[3]"
+    [datosGrafico]="lineChartData4"
+    [etiquetasGrafico]="lineChartLabels"
+    >
+  </app-grafico>
+
 
 <!--
 [etiquetasGrafico]="lineChartLabels$ | async"
