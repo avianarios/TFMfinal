@@ -1,5 +1,5 @@
-import { APIService } from '../../../shared/servicios/API.service';
-import { CosechasService } from '../../../shared/servicios/cosechas.service';
+import { APIService } from 'src/app/shared/servicios/API.service';
+import { CosechasService } from 'src/app/shared/servicios/cosechas.service';
 import { Component, OnInit
   //, Input, Output, EventEmitter
 } from '@angular/core';
@@ -11,8 +11,8 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { definicionCosecha } from '../../../shared/modelos/cosechas.model';
-import { definicionParametros } from '../../../shared/modelos/parametros.model';
+import { definicionCosecha } from 'src/app/shared/modelos/cosechas.model';
+import { definicionParametros } from 'src/app/shared/modelos/parametros.model';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 

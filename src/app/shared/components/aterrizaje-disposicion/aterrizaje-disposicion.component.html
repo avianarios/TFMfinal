@@ -20,24 +20,13 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/admin/configuracion/">Registro <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/cosechas/">Acceso<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Resultados</a>
-        </li>
-      </ul>
-    </div>-->
    <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/aterrizaje/acceso/">Acceso</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/aterrizaje/registro/">Registro <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -49,54 +38,53 @@
 <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
 
 
-
-
   <!-- Site footer -->
     <footer class="site-footer">
-      <div class="container">
+      <div class="container text-center">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <h6>About</h6>
-            <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+            <img src="assets/imagenes/logotipo.png" alt="">
+            <h6>Sobre gesViña</h6>
+            <p class="text-justify">GesViña <i>Gestión simplificada de viñedos </i> es una iniciativa que pretende facilitar la gestión de viñedos familiares. Tenemos ya más de 100 clientes satisfechos</p>
           </div>
 
-          <div class="col-xs-6 col-md-3">
-            <h6>Categories</h6>
+          <div class="col-xs-6 col-md-6">
+            <h6>Enlaces rápidos</h6>
             <ul class="footer-links">
-              <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-              <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-              <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-              <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-              <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-              <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
-            </ul>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="http://scanfcode.com/about/">About Us</a></li>
-              <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-              <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-              <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-              <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+              <li><a href="#">Sobre nosotros</a></li>
+              <li><a href="#">Contáctenos</a></li>
+              <li><a href="#">Política de privacidad</a></li>
+              <li><a href="#">Mapa del sitio</a></li>
             </ul>
           </div>
         </div>
-        <hr>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
+      <div class="container text-center">
+        <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
+        <div class="d-flex flex-column justify-content-center">
+          <!--<div class="col-md-8 col-sm-6 col-xs-12">-->
+          <div>
             <p class="copyright-text">Copyright &copy; Alejandro Viana Ríos | 2020 Todos los derechos reservados.
             </p>
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
+          <div>
+          <!--<div class="col-md-4 col-sm-6 col-xs-12">-->
             <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li>
+                <fa-icon [icon]="['fab', 'dribbble']" size="m"></fa-icon>
+              </li>
+              <li>
+                <fa-icon [icon]="['fab', 'linkedin']"></fa-icon>
+              </li>
+              <li>
+                <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
+              </li>
+              <li>
+                <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
+              </li>
+              <li>
+                <fa-icon [icon]="['fab', 'facebook-square']"></fa-icon>
+              </li>
             </ul>
           </div>
         </div>

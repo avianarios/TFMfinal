@@ -14,18 +14,29 @@ export const rootRouterConfig: Routes = [
 //    { path: '', redirectTo: 'aterrizaje', pathMatch: 'full' },
     { path: '', redirectTo: 'aterrizaje/portada', pathMatch: 'full' },
     {
+      path: 'kk',
+      loadChildren: './vistas/cosechas2/cosechas.module#CosechasModule',
+      data: { title: 'Cosechas' }
+    },
+
+    {
       path: 'aterrizaje',
       component: AterrizajeDisposicionComponent,
       children:[
       {
         path: 'portada',
         loadChildren: './vistas/aterrizaje/aterrizaje.module#AterrizajeModule',
-        data: { title: 'Inicio de sesión' }
+        data: { title: 'Aterrizaje' }
       },
         {
         path: 'acceso',
         loadChildren: './vistas/aterrizaje/acceso/acceso.module#AccesoModule',
         data: { title: 'Acceso' }
+      },
+      {
+      path: 'registro',
+      loadChildren: './vistas/aterrizaje/registro/registro.module#RegistroModule',
+      data: { title: 'Registro' }
       },
     ]},
     {
@@ -86,7 +97,7 @@ export const rootRouterConfig: Routes = [
     },
     {
       path: '**',
-      redirectTo: 'sessions/404'
+      redirectTo: 'aterrizaje/portada'
     }
 ];
 

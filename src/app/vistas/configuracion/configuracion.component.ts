@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CosechasService } from '../../shared/servicios/cosechas.service';
-import { APIService } from '../../shared/servicios/API.service';
+import { CosechasService } from 'src/app/shared/servicios/cosechas.service';
+import { APIService } from 'src/app/shared/servicios/API.service';
 
 //El siguiente servicio sirve también para los parámetros
-import { definicionCosecha } from '../../shared/modelos/cosechas.model';
-import { definicionParametros } from '../../shared/modelos/parametros.model';
+import { definicionCosecha } from 'src/app/shared/modelos/cosechas.model';
+import { definicionParametros } from 'src/app/shared/modelos/parametros.model';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+
 
 
 export interface Vino {
@@ -22,6 +23,7 @@ export interface Vino {
 
 export class ConfiguracionComponent implements OnInit {
 //  formulario: FormGroup;
+
   columnasCosechas=["tipo_vino", "anyo", "variedad_uva", "acciones"];
   datosCosechas=new MatTableDataSource<definicionCosecha>([]);
 //si no lo inicializo,da error (aunque al final sale todo bien) porque se renderiza el html, donde se incluye un {{cosechaActual.tipo_vino}} antes de que los datos estén cargados

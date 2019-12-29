@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { APIService } from 'src/app/shared/servicios/API.service';
 import { SesionService } from 'src/app/shared/servicios/sesion.service';
-import { UsuariosService } from 'src/app/shared/servicios/usuarios.service';
-
 import {
   FormGroup,
   FormArray,
@@ -25,7 +24,7 @@ export class AccesoComponent implements OnInit {
       private _builder: FormBuilder,
       private _sesion: SesionService,
       private _router: Router,
-      private _usuarios: UsuariosService
+      private _servicioAPI: APIService
     ) { }
 
   crearFormulario() {
@@ -58,7 +57,7 @@ export class AccesoComponent implements OnInit {
 
   ngOnInit() {
     this.crearFormulario();
-    this._usuarios.devolverUsuarios().subscribe(data => {
+    this._servicioAPI.devolverTodas("usuarios").subscribe(data => {
       this.usuarios = data;
     });
     this.autenticado=true;

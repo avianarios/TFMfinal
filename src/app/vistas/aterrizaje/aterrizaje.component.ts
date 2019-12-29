@@ -5,9 +5,9 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { UsuariosService } from '../../shared/servicios/usuarios.service';
 import { Router } from '@angular/router';
-import { SesionService } from '../../shared/servicios/sesion.service';
+import { APIService } from 'src/app/shared/servicios/API.service';
+import { SesionService } from 'src/app/shared/servicios/sesion.service';
 
 @Component({
   selector: 'app-aterrizaje',
@@ -27,9 +27,9 @@ export class AterrizajeComponent implements OnInit {
 
   constructor(
     private _builder: FormBuilder,
-    private _usuarios: UsuariosService,
+    private _sesion: SesionService,
     private _router: Router,
-    private _sesion: SesionService
+    private _servicioAPI: APIService
   ) {}
 
   private isUser(user, { username, password }) {
@@ -72,7 +72,7 @@ export class AterrizajeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._usuarios.devolverUsuarios().subscribe(data => {
+    this._servicioAPI.devolverTodas("usuarios").subscribe(data => {
       this.usuarios = data;
     });
   }

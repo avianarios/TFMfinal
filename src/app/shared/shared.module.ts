@@ -2,20 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-/*
-import { TranslateModule } from '@ngx-translate/core';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
 
 // COMPONENTS
-//import { AppComfirmComponent } from './services/app-confirm/app-confirm.component';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
 import { AterrizajeDisposicionComponent } from './components/aterrizaje-disposicion/aterrizaje-disposicion.component';
 
-//import { MuestrasComponent } from '../vistas/muestras/muestras.component';
 import { MaterialModule } from './material.module';
-
-//import { CosechaDetalleComponent } from '../vistas/cosechas/cosecha-detalle/cosecha-detalle.component';
-
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { faFacebookSquare, faTwitter, faLinkedin, faDribbble, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faTrash, faTrashAlt/*, faUser*/ } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEye } from '@fortawesome/free-regular-svg-icons';
 
 // DIRECTIVES
 
@@ -25,9 +21,6 @@ import { MaterialModule } from './material.module';
 //import { AppConfirmService } from './services/app-confirm/app-confirm.service';
 
 const declarations = [
-  //CosechaDetalleComponent,
-  //MuestrasComponent,
-  //AppComfirmComponent,
   AterrizajeDisposicionComponent,
   AdminLayoutComponent];
 const exports = [
@@ -35,7 +28,6 @@ const exports = [
   FormsModule,
   ReactiveFormsModule,
   RouterModule,
-//  AppComfirmComponent,
   AterrizajeDisposicionComponent,
   AdminLayoutComponent
 ];
@@ -43,11 +35,19 @@ const exports = [
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule,
-     MaterialModule
+     MaterialModule,
+     FontAwesomeModule,
    ],
   //entryComponents: [AppComfirmComponent],
   //providers,
   declarations,
   exports
 })
-export class SharedModule {}
+
+export class SharedModule {
+  constructor (library: FaIconLibrary){
+    //library.add(faFacebook, faTwitter, faLinkedin, faDribbble, faYoutube, faTrash);
+    library.addIcons(faFacebookSquare, faTwitter, faLinkedin, faDribbble, faYoutube, faTrash, faTrashAlt, faUser, faEye);
+
+  }
+}

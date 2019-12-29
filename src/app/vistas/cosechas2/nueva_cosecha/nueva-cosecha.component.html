@@ -1,0 +1,44 @@
+<section fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h3>Nueva cosecha</h3>
+  <!--<div fxFlex fxLayout="column" fxLayoutAlign="center center">-->
+  <form [formGroup]="formulario" (submit)="guardarCosecha()">
+    <div fxFlex fxLayout="column" class="formulario">
+      <mat-form-field class="formulario_horizontal">
+        <mat-label for="variedad_uva">Tipo de vino</mat-label>
+        <mat-select
+                 [(ngModel)] = "selectedValue" name = "tipo_vino" formControlName="tipo_vino">
+                 <mat-option *ngFor = "let vino of vinos"
+                    [value] = "vino.valor">
+                    {{vino.mostrar}}
+                 </mat-option>
+              </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="formulario_horizontal">
+        <mat-label for="variedad_uva">Variedad de uva</mat-label>
+        <input matInput
+        name="variedad_uva"
+        formControlName="variedad_uva"
+        />
+        <mat-error *ngIf = "formulario.controls['variedad_uva'].hasError('required')">
+          <strong>Valor obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="formulario_horizontal">
+        <mat-label for="anyo">Año</mat-label>
+        <input matInput
+        name="anyo"
+        formControlName="anyo"
+        />
+        <mat-error *ngIf = "formulario.controls['anyo'].hasError('required')">
+          <strong>Valor obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-button color="primary" type="submit" [disabled]="!formulario.valid">
+        Guardar
+      </button>
+    </div>
+  </form>
+</section>

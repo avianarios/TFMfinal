@@ -13,6 +13,7 @@ import { MaterialModule } from './shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APIService } from './shared/servicios/API.service';
 import { CosechasService } from './shared/servicios/cosechas.service';
+
 //import { GraficoComponent } from './shared/estadisticas/grafico/grafico.component';
 
 //import { StoreModule } from '@ngrx/store';
@@ -23,7 +24,6 @@ import { CosechasService } from './shared/servicios/cosechas.service';
 @NgModule({
   declarations: [
     AppComponent,
-  //  GraficoComponent,
   ],
   imports: [
     SharedModule,

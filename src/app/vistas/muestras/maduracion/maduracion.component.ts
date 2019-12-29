@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { APIService } from '../../../shared/servicios/API.service';
+import { APIService } from 'src/app/shared/servicios/API.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   FormGroup,
@@ -8,10 +8,10 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import {formatoFecha} from '../../../shared/validadores';
-import { definicionCosecha } from '../../../shared/modelos/cosechas.model';
+import {formatoFecha} from 'src/app/shared/validadores';
+import { definicionCosecha } from 'src/app/shared/modelos/cosechas.model';
 import { DatePipe } from '@angular/common';
-import { CosechasService } from '../../../shared/servicios/cosechas.service';
+import { CosechasService } from 'src/app/shared/servicios/cosechas.service';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({

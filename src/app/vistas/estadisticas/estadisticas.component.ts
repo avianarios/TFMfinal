@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import { APIService } from '../../shared/servicios/API.service';
+import { APIService } from 'src/app/shared/servicios/API.service';
 import { DatePipe } from '@angular/common';
-import { CosechasService } from '../../shared/servicios/cosechas.service';
-import { definicionCosecha } from '../../shared/modelos/cosechas.model';
+import { CosechasService } from 'src/app/shared/servicios/cosechas.service';
+import { definicionCosecha } from 'src/app/shared/modelos/cosechas.model';
 
 @Component({
   selector: 'app-estadisticas',

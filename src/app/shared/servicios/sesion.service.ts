@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+//import { definicionUsuarios } from 'src/app/shared/modelos/usuarios.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,7 @@ export class SesionService {
   sesionIniciada:boolean=false;
 //  credenciales= {id:"", tipo:""};
   usuario: Array<any>=[];
+  //usuario: definicionUsuarios;
 
   constructor() {
   }

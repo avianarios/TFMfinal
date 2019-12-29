@@ -1,0 +1,52 @@
+<section fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+  <mat-card  class="my-card" fxFlex="30%">
+    <mat-card-title>
+      <h5 class="text-center">
+        Registro de usuario
+      </h5>
+    </mat-card-title>
+    <form [formGroup]="formulario" (submit)="registrar()">
+     <mat-card-content fxLayout="column">
+       <mat-form-field>
+         <mat-label for="clave">Nombre</mat-label>
+         <input matInput
+         name="nombre"
+         formControlName="nombre"
+         />
+       </mat-form-field>
+       <mat-form-field>
+         <mat-label for="clave">Apellidos</mat-label>
+         <input matInput
+         name="apellidos"
+         formControlName="apellidos"
+         />
+       </mat-form-field>
+       <mat-form-field>
+         <mat-label for="clave">Correo</mat-label>
+         <input matInput
+         name="correo"
+         formControlName="correo"
+         />
+       </mat-form-field>
+       <mat-form-field>
+         <mat-label for="usuario">Usuario</mat-label>
+         <input matInput
+         name="usuario"
+         formControlName="usuario"
+         />
+       </mat-form-field>
+       <mat-form-field>
+         <mat-label for="clave">Clave</mat-label>
+         <input matInput
+         name="clave"
+         formControlName="clave"
+         />
+       </mat-form-field>
+     </mat-card-content>
+     <mat-card-actions fxLayoutAlign="center">
+        <button mat-button color="primary" type="submit">Registrar</button>
+        <button mat-button color="primary" routerLink="/aterrizaje/portada/">Cancelar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
